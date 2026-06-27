@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUXO XÊI - Pizzas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1a0000;
+            --card-bg: rgba(28, 3, 3, 0.95);
+            --text-light: #fff;
+            --text-muted: #ffcc99;
+            --accent: #ff6b00;
+            --accent-hover: #ffc107;
+            --glow: rgba(255, 193, 7, 0.5);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(180deg, #1a0000 0%, #2d0000 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+        .container { max-width: 950px; margin: 0 auto; }
+
+        /* Botão Voltar */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            z-index: 1000;
+            border: 2px solid var(--accent-hover);
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            background: var(--accent-hover);
+            color: black;
+            transform: translateX(-5px);
+        }
+
+        header { text-align: center; margin-bottom: 40px; margin-top: 70px; }
+        .logo {
+            max-width: 200px;
+            border-radius: 25px;
+            border: 4px solid var(--glow);
+            box-shadow: 0 0 30px var(--glow);
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #ffc107, #ff6b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section { 
+            background: var(--card-bg); 
+            border: 1px solid var(--glow);
+            padding: 30px 25px;
+            margin-bottom: 35px; 
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-hover);
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--glow);
+        }
+
+        .menu-item {
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,193,7,0.2);
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.3);
+            border-color: var(--accent-hover);
+        }
+
+        .menu-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .icon {
+            font-size: 2.4rem;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,107,0,0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; margin: 0; }
+        .desc { color: var(--text-muted); line-height: 1.5; margin-bottom: 18px; }
+
+        .sizes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+        .size {
+            background: rgba(255, 193, 7, 0.15);
+            padding: 11px 18px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .size:hover { background: var(--accent); color: white; }
+        .size.selected {
+            background: var(--accent-hover);
+            color: white;
+            border-color: #fff;
+            box-shadow: 0 0 15px var(--glow);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .add-btn, .half-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .add-btn {
+            background: linear-gradient(135deg, var(--accent), #ff4500);
+            color: white;
+        }
+        .add-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,107,0,0.4); }
+        .half-btn {
+            background: linear-gradient(135deg, #e65100, #ff8c00);
+            color: white;
+        }
+        .half-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(230,81,0,0.4); }
+
+        .cart-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #fff, #f8f8f8);
+            color: #c62828;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            cursor: pointer;
+            z-index: 1000;
+            border: 4px solid var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão Voltar ao Início -->
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Voltar ao Início
+    </a>
+
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Buxo Xêi" class="logo">
+            <h1>PIZZAS</h1>
+        </header>
+
+        <!-- PIZZAS SALGADAS -->
+        <section class="section">
+            <h2>Pizzas Salgadas</h2>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🍕</div>
+                    <h3>Mini Pizza</h3>
+                </div>
+                <p class="desc">Disponível em todos os sabores • Ideal para lanche</p>
+                <div class="sizes">
+                    <div class="size selected" data-size="Mini" data-price="12">Mini - R$ 12,00</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Mini</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🥩</div>
+                    <h3>Carne</h3>
+                </div>
+                <p class="desc">Molho de tomate, muçarela, carne moída e orégano</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🥩</div>
+                    <h3>Carne com Catupiry</h3>
+                </div>
+                <p class="desc">Molho de tomate, muçarela, carne e catupiry</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🧀</div>
+                    <h3>Carne com Cheddar</h3>
+                </div>
+                <p class="desc">Molho de tomate, muçarela, carne e cheddar</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🐔</div>
+                    <h3>Frango</h3>
+                </div>
+                <p class="desc">Molho de tomate, muçarela, frango desfiado e orégano</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🐔</div>
+                    <h3>Frango com Catupiry</h3>
+                </div>
+                <p class="desc">Molho de tomate, muçarela, frango e catupiry</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🐔</div>
+                    <h3>Frango com Cheddar</h3>
+                </div>
+                <p class="desc">Molho de tomate, muçarela, frango e cheddar</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🇵🇹</div>
+                    <h3>Portuguesa</h3>
+                </div>
+                <p class="desc">Presunto, ovo, milho, ervilha e orégano</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🌶️</div>
+                    <h3>Baiana</h3>
+                </div>
+                <p class="desc">Calabresa, pimentão, ovo e pimenta</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🥓</div>
+                    <h3>Grega</h3>
+                </div>
+                <p class="desc">Calabresa e bacon</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🌭</div>
+                    <h3>Calabresa</h3>
+                </div>
+                <p class="desc">Muçarela, calabresa e orégano</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🧀</div>
+                    <h3>Nordestina</h3>
+                </div>
+                <p class="desc">Queijo coalho e carne de sol</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🥓</div>
+                    <h3>Sertaneja</h3>
+                </div>
+                <p class="desc">Carne de sol e bacon</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🌽</div>
+                    <h3>Caipira</h3>
+                </div>
+                <p class="desc">Frango, milho e bacon</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIZZAS DOCES -->
+        <section class="section">
+            <h2>Pizzas Doces</h2>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🍫</div>
+                    <h3>2 Amores</h3>
+                </div>
+                <p class="desc">Chocolate preto, branco e leite condensado</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🍫</div>
+                    <h3>Chocolate</h3>
+                </div>
+                <p class="desc">Chocolate ao leite</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-header">
+                    <div class="icon">🍫</div>
+                    <h3>Chocolate com Leite Condensado</h3>
+                </div>
+                <p class="desc">Chocolate e leite condensado</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <button class="cart-toggle">
+        <i class="fas fa-shopping-cart" style="font-size:1.7rem;"></i>
+        <span>Carrinho</span>
+    </button>
+
+</body>
+</html>
