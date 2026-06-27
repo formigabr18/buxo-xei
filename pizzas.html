@@ -106,9 +106,118 @@
             z-index: 2000; box-shadow: 0 20px 50px rgba(0,0,0,0.7); overflow-y: auto;
             border: 1px solid var(--glow);
         }
+    
+        .toast {
+            position: fixed;
+            bottom: 110px;
+            right:25px;
+            background:rgba(30,30,30,0.95);
+            color:white;
+            padding:12px 18px;
+            border-radius:14px;
+            font-size:.95rem;
+            opacity:0;
+            transform:translateY(20px);
+            transition:all .4s ease;
+            z-index:9999;
+            border-left:4px solid #25D366;
+            backdrop-filter:blur(10px);
+        }
+        .toast.show{opacity:1;transform:translateY(0);}
+        .payment{
+            width:100%;
+            padding:12px;
+            margin:15px 0;
+            border-radius:12px;
+            border:1px solid rgba(255,193,7,.4);
+            background:rgba(255,255,255,.08);
+            color:white;
+        }
+        .payment option{color:black;}
+
+        .customer-box{
+            background:rgba(255,255,255,0.06);
+            padding:15px;
+            border-radius:16px;
+            margin:15px 0;
+            border:1px solid rgba(255,193,7,.3);
+        }
+        .customer-box label{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-bottom:10px;
+            font-weight:bold;
+            color:#ffc107;
+        }
+        .client-name{
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:12px;
+            background:rgba(255,255,255,.08);
+            color:white;
+            outline:none;
+            font-size:1rem;
+            transition:.3s;
+        }
+        .client-name:focus{
+            border:1px solid #ffc107;
+            box-shadow:0 0 12px rgba(255,193,7,.4);
+        }
+        .client-name::placeholder{
+            color:rgba(255,255,255,.5);
+        }
+
+        /* ESTILOS PARA A ÁREA DE CUPOM */
+        .coupon-box {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .coupon-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,193,7,.4);
+            background: rgba(255,255,255,.08);
+            color: white;
+            outline: none;
+        }
+        .coupon-input::placeholder {
+            color: rgba(255,255,255,.5);
+        }
+        .coupon-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .coupon-btn:hover {
+            background: var(--accent-hover);
+        }
+        .discount-info {
+            margin: 8px 0;
+            font-size: 0.9rem;
+            color: #25D366;
+            display: none;
+        }
+        .total-final {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: var(--accent-hover);
+        }
     </style>
 </head>
 <body>
+
+    <!-- 📌 Movi a div do TOAST para ANTES do JavaScript, onde deve estar -->
+    <div id="toast" class="toast"></div>
 
     <a href="index.html" class="back-btn">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
@@ -126,7 +235,7 @@
 
             <div class="menu-item" data-name="Carne">
                 <div class="menu-header"><div class="icon">🥩</div><h3>Carne</h3></div>
-                <p class="desc">Molho de tomate, muçarela, carne moída e orégano</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, carne e orégano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -146,7 +255,7 @@
 
             <div class="menu-item" data-name="Carne com Catupiry">
                 <div class="menu-header"><div class="icon">🥩</div><h3>Carne com Catupiry</h3></div>
-                <p class="desc">Molho de tomate, muçarela, carne e catupiry</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, carne, catupiry e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -166,7 +275,7 @@
 
             <div class="menu-item" data-name="Carne com Cheddar">
                 <div class="menu-header"><div class="icon">🧀</div><h3>Carne com Cheddar</h3></div>
-                <p class="desc">Molho de tomate, muçarela, carne e cheddar</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, carne, cheddar e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -186,7 +295,7 @@
 
             <div class="menu-item" data-name="Frango">
                 <div class="menu-header"><div class="icon">🐔</div><h3>Frango</h3></div>
-                <p class="desc">Molho de tomate, muçarela, frango desfiado e orégano</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango desfiado e orégano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -206,7 +315,7 @@
 
             <div class="menu-item" data-name="Frango com Catupiry">
                 <div class="menu-header"><div class="icon">🐔</div><h3>Frango com Catupiry</h3></div>
-                <p class="desc">Molho de tomate, muçarela, frango e catupiry</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango desfiado, catupiry e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -226,7 +335,7 @@
 
             <div class="menu-item" data-name="Frango com Cheddar">
                 <div class="menu-header"><div class="icon">🐔</div><h3>Frango com Cheddar</h3></div>
-                <p class="desc">Molho de tomate, muçarela, frango e cheddar</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango, cheddar e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -246,7 +355,7 @@
 
             <div class="menu-item" data-name="Portuguesa">
                 <div class="menu-header"><div class="icon">🇵🇹</div><h3>Portuguesa</h3></div>
-                <p class="desc">Presunto, ovo, milho, ervilha e orégano</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, presunto, ovo, milho, ervilha, orégano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -266,7 +375,7 @@
 
             <div class="menu-item" data-name="Baiana">
                 <div class="menu-header"><div class="icon">🌶️</div><h3>Baiana</h3></div>
-                <p class="desc">Calabresa, pimentão, ovo e pimenta</p>
+                <p class="desc">Molho de tomate,cebola, tomate, muçarela, calabresa, pimentão, ovo, pimenta e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -286,7 +395,7 @@
 
             <div class="menu-item" data-name="Grega">
                 <div class="menu-header"><div class="icon">🥓</div><h3>Grega</h3></div>
-                <p class="desc">Calabresa e bacon</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, calabresa, bacon e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -305,8 +414,8 @@
             </div>
 
             <div class="menu-item" data-name="Calabresa">
-                <div class="menu-header"><div class="icon">🌭</div><h3>Calabresa</h3></div>
-                <p class="desc">Muçarela, calabresa e orégano</p>
+                <div class="menu-header"><div class="icon">🍕</div><h3>Calabresa</h3></div>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, calabresa e orégano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -326,7 +435,7 @@
 
             <div class="menu-item" data-name="Nordestina">
                 <div class="menu-header"><div class="icon">🧀</div><h3>Nordestina</h3></div>
-                <p class="desc">Queijo coalho e carne de sol</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, queijo coalho, carne de sol e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -346,7 +455,7 @@
 
             <div class="menu-item" data-name="Sertaneja">
                 <div class="menu-header"><div class="icon">🥓</div><h3>Sertaneja</h3></div>
-                <p class="desc">Carne de sol e bacon</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, carne de sol, bacon e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -366,7 +475,7 @@
 
             <div class="menu-item" data-name="Caipira">
                 <div class="menu-header"><div class="icon">🌽</div><h3>Caipira</h3></div>
-                <p class="desc">Frango, milho e bacon</p>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango, milho, bacon e oregano</p>
                 <div class="sizes">
                     <div class="size" data-size="P" data-price="27">P - R$27</div>
                     <div class="size" data-size="M" data-price="32">M - R$32</div>
@@ -452,15 +561,51 @@
 
     <div id="cart" class="cart">
         <h3>🛒 Meu Carrinho</h3>
-        <input type="text" id="client-name" class="client-name" placeholder="Seu nome (obrigatório)" />
+        <div class="customer-box">
+            <label for="client-name">
+                <i class="fas fa-user"></i>
+                Nome para entrega
+            </label>
+            <input type="text" id="client-name" class="client-name" placeholder="Digite seu nome"/>
+        </div>
+
+        <!-- ÁREA DO CUPOM -->
+        <div class="coupon-box">
+            <input type="text" id="coupon-code" class="coupon-input" placeholder="Cupom de desconto">
+            <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
+        </div>
+        <div id="discount-info" class="discount-info"></div>
+
+        <select id="payment-method" class="payment">
+            <option value="">Forma de pagamento</option>
+            <option>Pix</option>
+            <option>Dinheiro</option>
+            <option>Cartão de Crédito</option>
+            <option>Cartão de Débito</option>
+        </select>
         <div id="cart-items"></div>
         <div class="total" id="total">Total: R$ 0,00</div>
-        <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold;">Enviar no WhatsApp</button>
+        <div class="total-final" id="total-final">Total com desconto: R$ 0,00</div>
+        <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">Enviar no WhatsApp</button>
     </div>
 
     <script>
         let cart = [];
         let halfPizza = null;
+        let discount = 0; // Variável para armazenar o valor do desconto
+
+        // Lista de cupons válidos — edite aqui para adicionar/alterar
+        const validCoupons = {
+            "KAR5": 5,
+            "GEN5": 5
+        };
+
+        function showToast(message){
+            const toast=document.getElementById("toast");
+            toast.textContent="✓ "+message;
+            toast.classList.add("show");
+            setTimeout(()=>toast.classList.remove("show"),2500);
+        }
 
         document.querySelectorAll('.menu-item').forEach(item => {
             const sizes = item.querySelectorAll('.size');
@@ -490,7 +635,7 @@
                 const obs = item.querySelector('.obs').value.trim();
 
                 cart.push({ name, size, price, obs, type: 'inteira' });
-                alert(`${name} (${size}) adicionado!`);
+                showToast(`${name} (${size}) adicionado ao carrinho`);
                 updateCart();
             });
 
@@ -505,14 +650,14 @@
 
                 if (!halfPizza) {
                     halfPizza = { name, size, price, obs };
-                    alert(`Primeira metade: ${name}. Escolha a segunda metade.`);
+                    showToast(`Primeira metade: ${name}`);
                 } else {
                     const finalPrice = Math.max(halfPizza.price, price);
                     const finalName = `${halfPizza.name} + ${name}`;
                     const finalObs = [halfPizza.obs, obs].filter(Boolean).join(" | ");
 
                     cart.push({ name: finalName, size, price: finalPrice, obs: finalObs, type: 'metade' });
-                    alert(`Metade concluída: ${finalName} - R$ ${finalPrice}`);
+                    showToast(`Pizza metade criada`);
                     halfPizza = null;
                     updateCart();
                 }
@@ -528,11 +673,16 @@
         function updateCart() {
             const itemsEl = document.getElementById('cart-items');
             const totalEl = document.getElementById('total');
+            const totalFinalEl = document.getElementById('total-final');
+            const discountInfoEl = document.getElementById('discount-info');
             itemsEl.innerHTML = '';
-            let total = 0;
+            let subtotal = 0;
 
             cart.forEach((item, i) => {
                 const div = document.createElement('div');
+                div.style.margin = "10px 0";
+                div.style.padding = "8px";
+                div.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
                 div.innerHTML = `
                     <strong>${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}</strong><br>
                     ${item.obs ? `Obs: ${item.obs}<br>` : ''}
@@ -540,9 +690,21 @@
                     <button onclick="removeFromCart(${i})" style="float:right;background:red;color:white;border:none;padding:5px 10px;border-radius:8px;">Remover</button>
                 `;
                 itemsEl.appendChild(div);
-                total += item.price;
+                subtotal += item.price;
             });
-            totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
+
+            const valorDesconto = subtotal * (discount / 100);
+            const valorFinal = subtotal - valorDesconto;
+
+            totalEl.textContent = `Subtotal: R$ ${subtotal.toFixed(2)}`;
+            totalFinalEl.textContent = `Total com desconto: R$ ${valorFinal.toFixed(2)}`;
+
+            if (discount > 0) {
+                discountInfoEl.style.display = "block";
+                discountInfoEl.textContent = `Desconto aplicado: ${discount}% (-R$ ${valorDesconto.toFixed(2)})`;
+            } else {
+                discountInfoEl.style.display = "none";
+            }
         }
 
         function removeFromCart(i) {
@@ -550,27 +712,51 @@
             updateCart();
         }
 
+        // Função para aplicar o cupom
+        function applyCoupon() {
+            const code = document.getElementById("coupon-code").value.trim().toUpperCase();
+            if (validCoupons.hasOwnProperty(code)) {
+                discount = validCoupons[code];
+                showToast(`Cupom aplicado! Desconto de ${discount}%`);
+                updateCart();
+            } else {
+                discount = 0;
+                showToast("Cupom inválido ou expirado");
+                updateCart();
+            }
+        }
+
         function checkout() {
             const name = document.getElementById('client-name').value.trim();
-            if (!name) return alert("Digite seu nome!");
+            if (!name) return showToast("Digite seu nome!");
+            const payment=document.getElementById("payment-method").value;
+            if(!payment) return showToast("Escolha a forma de pagamento");
             if (cart.length === 0) return alert("Carrinho vazio!");
 
-            let message = `*Pedido - Buxo Xêi*\nCliente: ${name}\n\n`;
-            let total = 0;
+            let subtotal = 0;
+            cart.forEach(item => subtotal += item.price);
+            const valorDesconto = subtotal * (discount / 100);
+            const valorFinal = subtotal - valorDesconto;
+
+            let message = `*Pedido - Buxo Xêi*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
 
             cart.forEach(item => {
-                message += `${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''} - R$ ${item.price}\n`;
+                message += `${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''} - R$ ${item.price.toFixed(2)}\n`;
                 if (item.obs) message += `Obs: ${item.obs}\n`;
                 message += `\n`;
-                total += item.price;
             });
 
-            message += `*Total: R$ ${total.toFixed(2)}*`;
+            message += `*Subtotal: R$ ${subtotal.toFixed(2)}*\n`;
+            if (discount > 0) {
+                message += `*Desconto: -R$ ${valorDesconto.toFixed(2)} (${discount}%)*\n`;
+            }
+            message += `*Total a pagar: R$ ${valorFinal.toFixed(2)}*`;
 
             const phone = "558496955210";
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
 
             cart = [];
+            discount = 0;
             updateCart();
             toggleCart();
         }
