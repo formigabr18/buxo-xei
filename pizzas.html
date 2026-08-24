@@ -567,6 +567,30 @@
                 </div>
             </div>
         </section>
+
+        <!-- COMBO DE ESFIRRAS -->
+        <section class="section">
+            <h2>Combo</h2>
+
+            <div class="menu-item" data-name="Combo de Esfirras">
+                <div class="menu-header">
+                    <div class="icon">🍕</div>
+                    <h3>Combo de Esfirras</h3>
+                </div>
+                <p class="desc">1 esfirra de carne + 1 esfirra de frango + 1 esfirra de chocolate</p>
+
+                <div class="sizes">
+                    <div class="size selected" data-size="Combo" data-price="15">Combo + R$ 15,00</div>
+                </div>
+
+                <textarea class="obs" placeholder="Observações..."></textarea>
+
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Combo</button>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <button class="cart-toggle" onclick="toggleCart()">
@@ -664,7 +688,8 @@
                 updateCart();
             });
 
-            item.querySelector('.half-btn').addEventListener('click', () => {
+            const halfButton = item.querySelector('.half-btn');
+            if (halfButton) halfButton.addEventListener('click', () => {
                 const selectedSize = item.querySelector('.size.selected');
                 const selectedBorda = item.querySelector('.borda.selected');
                 if (!selectedSize) return alert("Selecione um tamanho!");
@@ -699,6 +724,7 @@
                     updateCart();
                 }
             });
+            }
         });
 
         function toggleCart() {
