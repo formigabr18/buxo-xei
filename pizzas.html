@@ -1,4 +1,9 @@
+Aqui está o **código completo atualizado** com:
 
+- Carrossel só com **2 slides**: Combo de Esfirras + Frango Cremoso (novidade)
+- Visual totalmente diferente e mais chamativo no carrossel
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -200,114 +205,168 @@
             color: var(--accent-hover);
         }
 
-        /* ========== CARROSSEL NOVIDADES E PROMOÇÕES ========== */
+        /* ========== CARROSSEL NOVO VISUAL ========== */
         .carousel-section {
             margin-bottom: 40px;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
+
         .carousel-wrapper {
             position: relative;
             max-width: 950px;
             margin: 0 auto;
             overflow: hidden;
-            border-radius: 25px;
-            border: 1px solid var(--glow);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            background: var(--card-bg);
+            border-radius: 28px;
+            background: linear-gradient(135deg, #2b0000, #1a0000);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
         }
+
         .carousel-track {
             display: flex;
-            transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
         .carousel-slide {
             min-width: 100%;
-            padding: 35px 30px;
+            padding: 50px 40px;
             text-align: center;
             position: relative;
+            background: linear-gradient(145deg, rgba(255,107,0,0.15), rgba(255,193,7,0.08));
         }
+
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255,193,7,0.25), transparent 60%);
+            pointer-events: none;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b00, #ff4500);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255,107,0,0.5);
+        }
+
         .carousel-slide .promo-icon {
-            font-size: 3.2rem;
-            margin-bottom: 12px;
+            font-size: 4.5rem;
+            margin-bottom: 15px;
             display: block;
+            filter: drop-shadow(0 0 15px rgba(255,193,7,0.6));
         }
+
         .carousel-slide h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.7rem;
-            color: var(--accent-hover);
-            margin-bottom: 10px;
-            text-shadow: 0 0 12px var(--glow);
+            font-size: 2.1rem;
+            color: #fff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(255,193,7,0.5);
         }
+
         .carousel-slide p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
+            color: #ffcc99;
+            font-size: 1.15rem;
             line-height: 1.5;
-            max-width: 500px;
-            margin: 0 auto 18px;
+            max-width: 480px;
+            margin: 0 auto 22px;
         }
+
         .carousel-slide .promo-price {
             display: inline-block;
-            background: linear-gradient(135deg, var(--accent), #ff4500);
-            color: white;
-            font-weight: 700;
-            font-size: 1.25rem;
-            padding: 10px 22px;
+            background: linear-gradient(135deg, #ffc107, #ff6b00);
+            color: #1a0000;
+            font-weight: 900;
+            font-size: 1.6rem;
+            padding: 14px 32px;
             border-radius: 50px;
-            margin-top: 8px;
-            box-shadow: 0 6px 20px rgba(255,107,0,0.4);
+            box-shadow: 0 8px 25px rgba(255,193,7,0.5);
+            letter-spacing: 0.5px;
         }
+
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 48px;
-            height: 48px;
-            background: rgba(0,0,0,0.7);
-            border: 2px solid var(--accent-hover);
+            width: 52px;
+            height: 52px;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid #ffc107;
             color: white;
             border-radius: 50%;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             cursor: pointer;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.25s;
+            transition: all 0.3s;
+            backdrop-filter: blur(4px);
         }
+
         .carousel-btn:hover {
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--glow);
+            background: #ff6b00;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255,107,0,0.7);
+            transform: translateY(-50%) scale(1.1);
         }
-        .carousel-btn.prev { left: 15px; }
-        .carousel-btn.next { right: 15px; }
+
+        .carousel-btn.prev { left: 18px; }
+        .carousel-btn.next { right: 18px; }
+
         .carousel-dots {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            padding: 18px 0 22px;
+            gap: 12px;
+            padding: 20px 0 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
         }
+
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.3);
             cursor: pointer;
             transition: all 0.3s;
+            border: 2px solid transparent;
         }
+
         .dot.active {
-            background: var(--accent-hover);
-            box-shadow: 0 0 10px var(--glow);
-            transform: scale(1.2);
+            background: #ffc107;
+            box-shadow: 0 0 12px #ffc107;
+            transform: scale(1.25);
+            border-color: #fff;
         }
+
         @media (max-width: 600px) {
             .carousel-slide {
-                padding: 28px 50px;
+                padding: 40px 55px;
             }
             .carousel-slide h3 {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
+            }
+            .carousel-slide .promo-icon {
+                font-size: 3.5rem;
+            }
+            .carousel-slide .promo-price {
+                font-size: 1.3rem;
+                padding: 12px 24px;
             }
             .carousel-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1.15rem;
             }
         }
     </style>
@@ -333,36 +392,22 @@
                 </button>
 
                 <div class="carousel-track" id="carouselTrack">
-                    <!-- Slide 1 - Destaque do Combo -->
+                    <!-- Slide 1 - Combo de Esfirras -->
                     <div class="carousel-slide">
+                        <span class="promo-badge">Promoção</span>
                         <span class="promo-icon">🍕</span>
                         <h3>Combo de Esfirras</h3>
                         <p>1 Esfirra de Carne + 1 Esfirra de Frango + 1 Esfirra de Chocolate</p>
                         <div class="promo-price">R$ 15,00</div>
                     </div>
 
-                    <!-- Slide 2 -->
+                    <!-- Slide 2 - Frango Cremoso (Novidade) -->
                     <div class="carousel-slide">
-                        <span class="promo-icon">🔥</span>
-                        <h3>Pizza do Dia</h3>
-                        <p>Escolha qualquer pizza grande e ganhe <strong>borda recheada grátis</strong>!</p>
-                        <div class="promo-price">Só hoje</div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="carousel-slide">
-                        <span class="promo-icon">🚚</span>
-                        <h3>Frete Grátis</h3>
-                        <p>Em pedidos acima de R$ 60,00 o frete é por nossa conta!</p>
-                        <div class="promo-price">Aproveite</div>
-                    </div>
-
-                    <!-- Slide 4 -->
-                    <div class="carousel-slide">
-                        <span class="promo-icon">🍫</span>
-                        <h3>Pizza Doce em Dobro</h3>
-                        <p>Compre 1 pizza doce grande e leve a segunda com 50% de desconto!</p>
-                        <div class="promo-price">50% OFF</div>
+                        <span class="promo-badge">Novidade</span>
+                        <span class="promo-icon">🐔</span>
+                        <h3>Frango Cremoso</h3>
+                        <p>Molho de tomate, cebola, tomate, muçarela, frango desfiado cremoso e orégano</p>
+                        <div class="promo-price">A partir de R$ 27</div>
                     </div>
                 </div>
 
@@ -779,7 +824,6 @@
         let cart = [];
         let halfPizza = null;
         let discount = 0;
-        // Lista de cupons — edite aqui
         const validCoupons = {
             "KAR5": 5,
             "GEN5": 5
@@ -962,7 +1006,6 @@
         const totalSlides = slides.length;
         const dotsContainer = document.getElementById('carouselDots');
 
-        // Cria os dots
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -988,13 +1031,10 @@
             updateCarousel();
         }
 
-        // Autoplay (troca a cada 5 segundos)
         setInterval(() => {
             moveCarousel(1);
         }, 5000);
     </script>
 </body>
 </html>
-
-
-Pronto! É só copiar e colar o código inteiro.
+Agora o carrossel tem **apenas 2 slides** (Combo de Esfirras + Frango Cremoso) com um visual bem mais destacado e diferente do resto do cardápio.
