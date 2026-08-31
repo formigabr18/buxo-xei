@@ -25,21 +25,17 @@
             padding: 20px 15px;
         }
         .container { max-width: 950px; margin: 0 auto; }
-
         .back-btn {
             position: fixed; top: 20px; left: 20px; background: rgba(0,0,0,0.7);
             color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none;
             display: flex; align-items: center; gap: 8px; font-weight: bold; z-index: 1000;
             border: 2px solid var(--accent-hover);
         }
-
         header { text-align: center; margin-bottom: 40px; margin-top: 70px; }
         .logo { max-width: 200px; border-radius: 25px; border: 4px solid var(--glow); box-shadow: 0 0 30px var(--glow); }
         h1 { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; margin-top: 15px; background: linear-gradient(90deg, #ffc107, #ff6b00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
         .section { background: var(--card-bg); border: 1px solid var(--glow); padding: 30px 25px; margin-bottom: 35px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
         h2 { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: var(--accent-hover); text-align: center; margin-bottom: 30px; text-shadow: 0 0 15px var(--glow); }
-
         .menu-item {
             background: rgba(255,255,255,0.06);
             border-radius: 20px;
@@ -51,7 +47,6 @@
         .icon { font-size: 2.4rem; width: 60px; height: 60px; background: rgba(255,107,0,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
         h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
         .desc { color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
-
         .sizes { display: flex; gap: 12px; flex-wrap: wrap; margin: 15px 0; }
         .size {
             background: rgba(255, 193, 7, 0.15);
@@ -67,7 +62,6 @@
             color: white; 
             border-color: #fff; 
         }
-
         .borda-options { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
         .borda {
             background: rgba(255,255,255,0.1);
@@ -78,13 +72,11 @@
             font-size: 0.9rem;
         }
         .borda.selected { background: var(--accent-hover); color: white; }
-
         .obs {
             width: 100%; padding: 12px; background: rgba(255,255,255,0.08);
             border: 1px solid var(--glow); border-radius: 12px; color: white;
             margin: 12px 0; resize: vertical;
         }
-
         .action-buttons { display: flex; gap: 12px; margin-top: 10px; }
         .add-btn, .half-btn {
             flex: 1; padding: 15px; border: none; border-radius: 15px;
@@ -92,21 +84,18 @@
         }
         .add-btn { background: linear-gradient(135deg, var(--accent), #ff4500); color: white; }
         .half-btn { background: linear-gradient(135deg, #e65100, #ff8c00); color: white; }
-
         .cart-toggle {
             position: fixed; bottom: 25px; right: 25px; background: white; color: #c62828;
             width: 75px; height: 75px; border-radius: 50%; display: flex; flex-direction: column;
             align-items: center; justify-content: center; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             cursor: pointer; z-index: 1000; border: 4px solid var(--accent-hover);
         }
-
         .cart {
             position: fixed; bottom: 110px; right: 20px; width: 380px; max-height: 75vh;
             background: var(--card-bg); border-radius: 20px; padding: 20px; display: none;
             z-index: 2000; box-shadow: 0 20px 50px rgba(0,0,0,0.7); overflow-y: auto;
             border: 1px solid var(--glow);
         }
-    
         .toast {
             position: fixed;
             bottom: 110px;
@@ -134,7 +123,6 @@
             color:white;
         }
         .payment option{color:black;}
-
         .customer-box{
             background:rgba(255,255,255,0.06);
             padding:15px;
@@ -168,8 +156,6 @@
         .client-name::placeholder{
             color:rgba(255,255,255,.5);
         }
-
-        /* ESTILOS PARA A ÁREA DE CUPOM */
         .coupon-box {
             display: flex;
             gap: 8px;
@@ -215,13 +201,10 @@
     </style>
 </head>
 <body>
-
     <div id="toast" class="toast"></div>
-
     <a href="index.html" class="back-btn">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
     </a>
-
     <div class="container">
         <header>
             <img src="logo.png" alt="Buxo Xêi" class="logo">
@@ -571,26 +554,21 @@
         <!-- COMBO DE ESFIRRAS -->
         <section class="section">
             <h2>Combo</h2>
-
             <div class="menu-item" data-name="Combo de Esfirras">
                 <div class="menu-header">
                     <div class="icon">🍕</div>
                     <h3>Combo de Esfirras</h3>
                 </div>
                 <p class="desc">1 esfirra de carne + 1 esfirra de frango + 1 esfirra de chocolate</p>
-
-            <div class="size" data-size="Combo" data-price="15">
-    Combo + R$ 15,00
-</div>
-                
+                <div class="sizes">
+                    <div class="size selected" data-size="Combo" data-price="15">Combo - R$ 15,00</div>
+                </div>
                 <textarea class="obs" placeholder="Observações..."></textarea>
-
                 <div class="action-buttons">
                     <button class="add-btn">Adicionar Combo</button>
                 </div>
             </div>
         </section>
-
     </div>
 
     <button class="cart-toggle" onclick="toggleCart()">
@@ -607,13 +585,11 @@
             </label>
             <input type="text" id="client-name" class="client-name" placeholder="Digite seu nome"/>
         </div>
-
         <div class="coupon-box">
             <input type="text" id="coupon-code" class="coupon-input" placeholder="Cupom de desconto">
             <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
         </div>
         <div id="discount-info" class="discount-info"></div>
-
         <select id="payment-method" class="payment">
             <option value="">Forma de pagamento</option>
             <option>Pix</option>
@@ -639,10 +615,10 @@
         };
 
         function showToast(message){
-            const toast=document.getElementById("toast");
-            toast.textContent="✓ "+message;
+            const toast = document.getElementById("toast");
+            toast.textContent = "✓ " + message;
             toast.classList.add("show");
-            setTimeout(()=>toast.classList.remove("show"),2500);
+            setTimeout(() => toast.classList.remove("show"), 2500);
         }
 
         document.querySelectorAll('.menu-item').forEach(item => {
@@ -667,7 +643,7 @@
                 const selectedSize = item.querySelector('.size.selected');
                 const selectedBorda = item.querySelector('.borda.selected');
                 if (!selectedSize) return alert("Selecione um tamanho!");
-
+                
                 const name = item.querySelector('h3').textContent;
                 const size = selectedSize.dataset.size;
                 const price = parseFloat(selectedSize.dataset.price);
@@ -689,41 +665,42 @@
             });
 
             const halfButton = item.querySelector('.half-btn');
-            if (halfButton) halfButton.addEventListener('click', () => {
-                const selectedSize = item.querySelector('.size.selected');
-                const selectedBorda = item.querySelector('.borda.selected');
-                if (!selectedSize) return alert("Selecione um tamanho!");
+            if (halfButton) {
+                halfButton.addEventListener('click', () => {
+                    const selectedSize = item.querySelector('.size.selected');
+                    const selectedBorda = item.querySelector('.borda.selected');
+                    if (!selectedSize) return alert("Selecione um tamanho!");
 
-                const name = item.querySelector('h3').textContent;
-                const size = selectedSize.dataset.size;
-                const price = parseFloat(selectedSize.dataset.price);
-                const bordaNome = selectedBorda ? selectedBorda.textContent : "Sem borda";
-                const bordaValor = selectedBorda ? parseFloat(selectedBorda.dataset.preco) : 0;
-                const totalItem = price + bordaValor;
-                const obs = item.querySelector('.obs').value.trim();
+                    const name = item.querySelector('h3').textContent;
+                    const size = selectedSize.dataset.size;
+                    const price = parseFloat(selectedSize.dataset.price);
+                    const bordaNome = selectedBorda ? selectedBorda.textContent : "Sem borda";
+                    const bordaValor = selectedBorda ? parseFloat(selectedBorda.dataset.preco) : 0;
+                    const totalItem = price + bordaValor;
+                    const obs = item.querySelector('.obs').value.trim();
 
-                if (!halfPizza) {
-                    halfPizza = { name, size, price: totalItem, borda: bordaNome, obs };
-                    showToast(`Primeira metade: ${name}`);
-                } else {
-                    const finalPrice = Math.max(halfPizza.price, totalItem);
-                    const finalName = `${halfPizza.name} + ${name}`;
-                    const finalBorda = halfPizza.borda;
-                    const finalObs = [halfPizza.obs, obs].filter(Boolean).join(" | ");
+                    if (!halfPizza) {
+                        halfPizza = { name, size, price: totalItem, borda: bordaNome, obs };
+                        showToast(`Primeira metade: ${name}`);
+                    } else {
+                        const finalPrice = Math.max(halfPizza.price, totalItem);
+                        const finalName = `${halfPizza.name} + ${name}`;
+                        const finalBorda = halfPizza.borda;
+                        const finalObs = [halfPizza.obs, obs].filter(Boolean).join(" | ");
 
-                    cart.push({ 
-                        name: finalName, 
-                        size, 
-                        price: finalPrice, 
-                        borda: finalBorda,
-                        obs: finalObs, 
-                        type: 'metade' 
-                    });
-                    showToast(`Pizza metade criada`);
-                    halfPizza = null;
-                    updateCart();
-                }
-            });
+                        cart.push({ 
+                            name: finalName, 
+                            size, 
+                            price: finalPrice, 
+                            borda: finalBorda,
+                            obs: finalObs, 
+                            type: 'metade' 
+                        });
+                        showToast(`Pizza metade criada`);
+                        halfPizza = null;
+                        updateCart();
+                    }
+                });
             }
         });
 
@@ -738,6 +715,7 @@
             const totalEl = document.getElementById('total');
             const totalFinalEl = document.getElementById('total-final');
             const discountInfoEl = document.getElementById('discount-info');
+
             itemsEl.innerHTML = '';
             let subtotal = 0;
 
@@ -792,12 +770,15 @@
         function checkout() {
             const name = document.getElementById('client-name').value.trim();
             if (!name) return showToast("Digite seu nome!");
+
             const payment = document.getElementById("payment-method").value;
             if (!payment) return showToast("Escolha a forma de pagamento");
+
             if (cart.length === 0) return alert("Carrinho vazio!");
 
             let subtotal = 0;
             cart.forEach(item => subtotal += item.price);
+
             const valorDesconto = subtotal * (discount / 100);
             const valorFinal = subtotal - valorDesconto;
 
