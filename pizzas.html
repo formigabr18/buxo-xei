@@ -199,6 +199,117 @@
             margin: 15px 0;
             color: var(--accent-hover);
         }
+
+        /* ========== CARROSSEL NOVIDADES E PROMOÇÕES ========== */
+        .carousel-section {
+            margin-bottom: 40px;
+        }
+        .carousel-wrapper {
+            position: relative;
+            max-width: 950px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 25px;
+            border: 1px solid var(--glow);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            background: var(--card-bg);
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .carousel-slide {
+            min-width: 100%;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
+        }
+        .carousel-slide .promo-icon {
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .carousel-slide h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
+            color: var(--accent-hover);
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px var(--glow);
+        }
+        .carousel-slide p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.5;
+            max-width: 500px;
+            margin: 0 auto 18px;
+        }
+        .carousel-slide .promo-price {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #ff4500);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            padding: 10px 22px;
+            border-radius: 50px;
+            margin-top: 8px;
+            box-shadow: 0 6px 20px rgba(255,107,0,0.4);
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid var(--accent-hover);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+        .carousel-btn:hover {
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--glow);
+        }
+        .carousel-btn.prev { left: 15px; }
+        .carousel-btn.next { right: 15px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 0 22px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: var(--accent-hover);
+            box-shadow: 0 0 10px var(--glow);
+            transform: scale(1.2);
+        }
+        @media (max-width: 600px) {
+            .carousel-slide {
+                padding: 28px 50px;
+            }
+            .carousel-slide h3 {
+                font-size: 1.4rem;
+            }
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -211,6 +322,58 @@
             <img src="logo.png" alt="Buxo Xêi" class="logo">
             <h1>PIZZAS</h1>
         </header>
+
+        <!-- ========== NOVIDADES E PROMOÇÕES ========== -->
+        <section class="section carousel-section">
+            <h2>🔥 Novidades e Promoções</h2>
+
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="moveCarousel(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Slide 1 - Destaque do Combo -->
+                    <div class="carousel-slide">
+                        <span class="promo-icon">🍕</span>
+                        <h3>Combo de Esfirras</h3>
+                        <p>1 Esfirra de Carne + 1 Esfirra de Frango + 1 Esfirra de Chocolate</p>
+                        <div class="promo-price">R$ 15,00</div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="carousel-slide">
+                        <span class="promo-icon">🔥</span>
+                        <h3>Pizza do Dia</h3>
+                        <p>Escolha qualquer pizza grande e ganhe <strong>borda recheada grátis</strong>!</p>
+                        <div class="promo-price">Só hoje</div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-slide">
+                        <span class="promo-icon">🚚</span>
+                        <h3>Frete Grátis</h3>
+                        <p>Em pedidos acima de R$ 60,00 o frete é por nossa conta!</p>
+                        <div class="promo-price">Aproveite</div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="carousel-slide">
+                        <span class="promo-icon">🍫</span>
+                        <h3>Pizza Doce em Dobro</h3>
+                        <p>Compre 1 pizza doce grande e leve a segunda com 50% de desconto!</p>
+                        <div class="promo-price">50% OFF</div>
+                    </div>
+                </div>
+
+                <button class="carousel-btn next" onclick="moveCarousel(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </section>
+
         <!-- PIZZAS SALGADAS -->
         <section class="section">
             <h2>Pizzas Salgadas</h2>
@@ -293,6 +456,32 @@
                     <button class="half-btn">Metade</button>
                 </div>
             </div>
+
+            <!-- NOVO SABOR: Frango Cremoso -->
+            <div class="menu-item" data-name="Frango Cremoso">
+                <div class="menu-header">
+                    <div class="icon">🐔</div>
+                    <h3>Frango Cremoso</h3>
+                </div>
+                <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango desfiado cremoso e orégano</p>
+                <div class="sizes">
+                    <div class="size" data-size="P" data-price="27">P - R$27</div>
+                    <div class="size" data-size="M" data-price="32">M - R$32</div>
+                    <div class="size" data-size="G" data-price="38">G - R$38</div>
+                </div>
+                <div class="borda-options">
+                    <div class="borda" data-preco="0">Sem borda</div>
+                    <div class="borda" data-preco="0">Borda Catupiry</div>
+                    <div class="borda" data-preco="0">Borda Cheddar</div>
+                    <div class="borda" data-preco="7">Borda de Chocolate (+R$ 7,00)</div>
+                </div>
+                <textarea class="obs" placeholder="Observações..."></textarea>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar Inteira</button>
+                    <button class="half-btn">Metade</button>
+                </div>
+            </div>
+
             <div class="menu-item" data-name="Frango com Catupiry">
                 <div class="menu-header"><div class="icon">🐔</div><h3>Frango com Catupiry</h3></div>
                 <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango desfiado, catupiry e oregano</p>
@@ -474,6 +663,7 @@
                 </div>
             </div>
         </section>
+
         <!-- PIZZAS DOCES -->
         <section class="section">
             <h2>Pizzas Doces</h2>
@@ -532,6 +722,7 @@
                 </div>
             </div>
         </section>
+
         <!-- COMBO DE ESFIRRAS -->
         <section class="section">
             <h2>Combo</h2>
@@ -551,10 +742,12 @@
             </div>
         </section>
     </div>
+
     <button class="cart-toggle" onclick="toggleCart()">
         <i class="fas fa-shopping-cart" style="font-size:1.7rem;"></i>
         <span>Carrinho</span>
     </button>
+
     <div id="cart" class="cart">
         <h3>🛒 Meu Carrinho</h3>
         <div class="customer-box">
@@ -581,6 +774,7 @@
         <div class="total-final" id="total-final">Total com desconto: R$ 0,00</div>
         <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">Enviar no WhatsApp</button>
     </div>
+
     <script>
         let cart = [];
         let halfPizza = null;
@@ -590,12 +784,14 @@
             "KAR5": 5,
             "GEN5": 5
         };
+
         function showToast(message){
             const toast = document.getElementById("toast");
             toast.textContent = "✓ " + message;
             toast.classList.add("show");
             setTimeout(() => toast.classList.remove("show"), 2500);
         }
+
         document.querySelectorAll('.menu-item').forEach(item => {
             const sizes = item.querySelectorAll('.size');
             const bordas = item.querySelectorAll('.borda');
@@ -670,11 +866,13 @@
                 });
             }
         });
+
         function toggleCart() {
             const cartEl = document.getElementById('cart');
             cartEl.style.display = cartEl.style.display === 'block' ? 'none' : 'block';
             if (cartEl.style.display === 'block') updateCart();
         }
+
         function updateCart() {
             const itemsEl = document.getElementById('cart-items');
             const totalEl = document.getElementById('total');
@@ -708,10 +906,12 @@
                 discountInfoEl.style.display = "none";
             }
         }
+
         function removeFromCart(i) {
             cart.splice(i, 1);
             updateCart();
         }
+
         function applyCoupon() {
             const code = document.getElementById("coupon-code").value.trim().toUpperCase();
             if (validCoupons.hasOwnProperty(code)) {
@@ -724,6 +924,7 @@
                 updateCart();
             }
         }
+
         function checkout() {
             const name = document.getElementById('client-name').value.trim();
             if (!name) return showToast("Digite seu nome!");
@@ -753,8 +954,47 @@
             updateCart();
             toggleCart();
         }
+
+        /* ========== CARROSSEL ========== */
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const dotsContainer = document.getElementById('carouselDots');
+
+        // Cria os dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function moveCarousel(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Autoplay (troca a cada 5 segundos)
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
     </script>
 </body>
 </html>
 
 
+Pronto! É só copiar e colar o código inteiro.
