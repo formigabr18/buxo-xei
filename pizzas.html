@@ -198,7 +198,6 @@
             margin: 15px 0;
             color: var(--accent-hover);
         }
-
         /* ========== CARROSSEL NOVO VISUAL ========== */
         .carousel-section {
             margin-bottom: 40px;
@@ -207,7 +206,6 @@
             border: none !important;
             box-shadow: none !important;
         }
-
         .carousel-wrapper {
             position: relative;
             max-width: 950px;
@@ -217,12 +215,10 @@
             background: linear-gradient(135deg, #2b0000, #1a0000);
             box-shadow: 0 20px 50px rgba(0,0,0,0.7);
         }
-
         .carousel-track {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         .carousel-slide {
             min-width: 100%;
             padding: 50px 40px;
@@ -230,7 +226,6 @@
             position: relative;
             background: linear-gradient(145deg, rgba(255,107,0,0.15), rgba(255,193,7,0.08));
         }
-
         .carousel-slide::before {
             content: '';
             position: absolute;
@@ -238,7 +233,6 @@
             background: radial-gradient(circle at top right, rgba(255,193,7,0.25), transparent 60%);
             pointer-events: none;
         }
-
         .promo-badge {
             display: inline-block;
             background: linear-gradient(135deg, #ff6b00, #ff4500);
@@ -252,14 +246,12 @@
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(255,107,0,0.5);
         }
-
         .carousel-slide .promo-icon {
             font-size: 4.5rem;
             margin-bottom: 15px;
             display: block;
             filter: drop-shadow(0 0 15px rgba(255,193,7,0.6));
         }
-
         .carousel-slide h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.1rem;
@@ -267,7 +259,6 @@
             margin-bottom: 12px;
             text-shadow: 0 0 20px rgba(255,193,7,0.5);
         }
-
         .carousel-slide p {
             color: #ffcc99;
             font-size: 1.15rem;
@@ -275,7 +266,6 @@
             max-width: 480px;
             margin: 0 auto 22px;
         }
-
         .carousel-slide .promo-price {
             display: inline-block;
             background: linear-gradient(135deg, #ffc107, #ff6b00);
@@ -287,7 +277,6 @@
             box-shadow: 0 8px 25px rgba(255,193,7,0.5);
             letter-spacing: 0.5px;
         }
-
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -307,17 +296,14 @@
             transition: all 0.3s;
             backdrop-filter: blur(4px);
         }
-
         .carousel-btn:hover {
             background: #ff6b00;
             border-color: #fff;
             box-shadow: 0 0 20px rgba(255,107,0,0.7);
             transform: translateY(-50%) scale(1.1);
         }
-
         .carousel-btn.prev { left: 18px; }
         .carousel-btn.next { right: 18px; }
-
         .carousel-dots {
             display: flex;
             justify-content: center;
@@ -325,7 +311,6 @@
             padding: 20px 0 25px;
             background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
         }
-
         .dot {
             width: 14px;
             height: 14px;
@@ -335,14 +320,12 @@
             transition: all 0.3s;
             border: 2px solid transparent;
         }
-
         .dot.active {
             background: #ffc107;
             box-shadow: 0 0 12px #ffc107;
             transform: scale(1.25);
             border-color: #fff;
         }
-
         @media (max-width: 600px) {
             .carousel-slide {
                 padding: 40px 55px;
@@ -375,16 +358,13 @@
             <img src="logo.png" alt="Buxo Xêi" class="logo">
             <h1>PIZZAS</h1>
         </header>
-
         <!-- ========== NOVIDADES E PROMOÇÕES ========== -->
         <section class="section carousel-section">
             <h2>🔥 Novidades e Promoções</h2>
-
             <div class="carousel-wrapper">
                 <button class="carousel-btn prev" onclick="moveCarousel(-1)">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-
                 <div class="carousel-track" id="carouselTrack">
                     <!-- Slide 1 - Combo de Esfirras -->
                     <div class="carousel-slide">
@@ -394,7 +374,6 @@
                         <p>1 Esfirra de Carne + 1 Esfirra de Frango + 1 Esfirra de Chocolate</p>
                         <div class="promo-price">R$ 15,00</div>
                     </div>
-
                     <!-- Slide 2 - Frango Cremoso (Novidade) -->
                     <div class="carousel-slide">
                         <span class="promo-badge">Novidade</span>
@@ -404,15 +383,12 @@
                         <div class="promo-price">A partir de R$ 27</div>
                     </div>
                 </div>
-
                 <button class="carousel-btn next" onclick="moveCarousel(1)">
                     <i class="fas fa-chevron-right"></i>
                 </button>
-
                 <div class="carousel-dots" id="carouselDots"></div>
             </div>
         </section>
-
         <!-- PIZZAS SALGADAS -->
         <section class="section">
             <h2>Pizzas Salgadas</h2>
@@ -495,7 +471,6 @@
                     <button class="half-btn">Metade</button>
                 </div>
             </div>
-
             <!-- Frango Cremoso -->
             <div class="menu-item" data-name="Frango Cremoso">
                 <div class="menu-header">
@@ -520,7 +495,6 @@
                     <button class="half-btn">Metade</button>
                 </div>
             </div>
-
             <div class="menu-item" data-name="Frango com Catupiry">
                 <div class="menu-header"><div class="icon">🐔</div><h3>Frango com Catupiry</h3></div>
                 <p class="desc">Molho de tomate, cebola, tomate, muçarela, frango desfiado, catupiry e oregano</p>
@@ -641,7 +615,6 @@
                     <button class="half-btn">Metade</button>
                 </div>
             </div>
-
             <!-- Nordestina -->
             <div class="menu-item" data-name="Nordestina">
                 <div class="menu-header"><div class="icon">🧀</div><h3>Nordestina</h3></div>
@@ -663,7 +636,6 @@
                     <button class="half-btn">Metade</button>
                 </div>
             </div>
-
             <!-- Sertaneja -->
             <div class="menu-item" data-name="Sertaneja">
                 <div class="menu-header"><div class="icon">🥓</div><h3>Sertaneja</h3></div>
@@ -685,7 +657,6 @@
                     <button class="half-btn">Metade</button>
                 </div>
             </div>
-
             <!-- Caipira -->
             <div class="menu-item" data-name="Caipira">
                 <div class="menu-header"><div class="icon">🌽</div><h3>Caipira</h3></div>
@@ -708,7 +679,6 @@
                 </div>
             </div>
         </section>
-
         <!-- PIZZAS DOCES (preços atualizados) -->
         <section class="section">
             <h2>Pizzas Doces</h2>
@@ -767,7 +737,6 @@
                 </div>
             </div>
         </section>
-
         <!-- COMBO DE ESFIRRAS -->
         <section class="section">
             <h2>Combo</h2>
@@ -787,12 +756,10 @@
             </div>
         </section>
     </div>
-
     <button class="cart-toggle" onclick="toggleCart()">
         <i class="fas fa-shopping-cart" style="font-size:1.7rem;"></i>
         <span>Carrinho</span>
     </button>
-
     <div id="cart" class="cart">
         <h3>🛒 Meu Carrinho</h3>
         <div class="customer-box">
@@ -819,7 +786,6 @@
         <div class="total-final" id="total-final">Total com desconto: R$ 0,00</div>
         <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">Enviar no WhatsApp</button>
     </div>
-
     <script>
         let cart = [];
         let halfPizza = null;
@@ -828,14 +794,12 @@
             "KAR5": 5,
             "GEN5": 5
         };
-
         function showToast(message){
             const toast = document.getElementById("toast");
             toast.textContent = "✓ " + message;
             toast.classList.add("show");
             setTimeout(() => toast.classList.remove("show"), 2500);
         }
-
         document.querySelectorAll('.menu-item').forEach(item => {
             const sizes = item.querySelectorAll('.size');
             const bordas = item.querySelectorAll('.borda');
@@ -910,13 +874,11 @@
                 });
             }
         });
-
         function toggleCart() {
             const cartEl = document.getElementById('cart');
             cartEl.style.display = cartEl.style.display === 'block' ? 'none' : 'block';
             if (cartEl.style.display === 'block') updateCart();
         }
-
         function updateCart() {
             const itemsEl = document.getElementById('cart-items');
             const totalEl = document.getElementById('total');
@@ -950,12 +912,10 @@
                 discountInfoEl.style.display = "none";
             }
         }
-
         function removeFromCart(i) {
             cart.splice(i, 1);
             updateCart();
         }
-
         function applyCoupon() {
             const code = document.getElementById("coupon-code").value.trim().toUpperCase();
             if (validCoupons.hasOwnProperty(code)) {
@@ -968,7 +928,6 @@
                 updateCart();
             }
         }
-
         function checkout() {
             const name = document.getElementById('client-name').value.trim();
             if (!name) return showToast("Digite seu nome!");
@@ -998,14 +957,12 @@
             updateCart();
             toggleCart();
         }
-
         /* ========== CARROSSEL ========== */
         let currentSlide = 0;
         const track = document.getElementById('carouselTrack');
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
         const dotsContainer = document.getElementById('carouselDots');
-
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -1013,24 +970,20 @@
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
         }
-
         function updateCarousel() {
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
             document.querySelectorAll('.dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentSlide);
             });
         }
-
         function moveCarousel(direction) {
             currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
             updateCarousel();
         }
-
         function goToSlide(index) {
             currentSlide = index;
             updateCarousel();
         }
-
         setInterval(() => {
             moveCarousel(1);
         }, 5000);
