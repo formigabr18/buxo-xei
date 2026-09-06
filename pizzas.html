@@ -820,13 +820,17 @@
         <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">Enviar no WhatsApp</button>
     </div>
     <script>
-        let cart = [];
+        let cart = JSON.parse(localStorage.getItem('buxoCart') || '[]');
         let halfPizza = null;
-        let discount = 0;
+        let discount = parseInt(localStorage.getItem('buxoDiscount') || '0');
         const validCoupons = {
             "KAR5": 5,
             "GEN5": 5
         };
+        function saveCart() {
+            localStorage.setItem('buxoCart', JSON.stringify(cart));
+            localStorage.setItem('buxoDiscount', discount);
+        }
         function showToast(message){
             const toast = document.getElementById("toast");
             toast.textContent = "✓ " + message;
@@ -869,6 +873,7 @@
                     type: 'inteira' 
                 });
                 showToast(`${name} (${size}) adicionado ao carrinho`);
+                saveCart();
                 updateCart();
             });
             const halfButton = item.querySelector('.half-btn');
@@ -902,6 +907,7 @@
                         });
                         showToast(`Pizza metade criada`);
                         halfPizza = null;
+                        saveCart();
                         updateCart();
                     }
                 });
@@ -926,7 +932,8 @@
                 div.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
                 div.innerHTML = `
                     <strong>${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}</strong><br>
-                    Borda: ${item.borda}<br>
+                    ${item.borda ? `Borda: ${item.borda}<br>` : ''}
+                    ${item.extra ? `Extra: ${item.extra}<br>` : ''}
                     ${item.obs ? `Obs: ${item.obs}<br>` : ''}
                     <strong>R$ ${item.price.toFixed(2)}</strong>
                     <button onclick="removeFromCart(${i})" style="float:right;background:red;color:white;border:none;padding:5px 10px;border-radius:8px;">Remover</button>
@@ -947,6 +954,7 @@
         }
         function removeFromCart(i) {
             cart.splice(i, 1);
+            saveCart();
             updateCart();
         }
         function applyCoupon() {
@@ -954,10 +962,12 @@
             if (validCoupons.hasOwnProperty(code)) {
                 discount = validCoupons[code];
                 showToast(`Cupom aplicado! Desconto de ${discount}%`);
+                saveCart();
                 updateCart();
             } else {
                 discount = 0;
                 showToast("Cupom inválido ou expirado");
+                saveCart();
                 updateCart();
             }
         }
@@ -974,7 +984,8 @@
             let message = `*Pedido - Buxo Xêi*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
             cart.forEach(item => {
                 message += `${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}\n`;
-                message += `Borda: ${item.borda}\n`;
+                if (item.borda) message += `Borda: ${item.borda}\n`;
+                if (item.extra) message += `Extra: ${item.extra}\n`;
                 if (item.obs) message += `Obs: ${item.obs}\n`;
                 message += `Valor: R$ ${item.price.toFixed(2)}\n\n`;
             });
@@ -987,6 +998,7 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
             cart = [];
             discount = 0;
+            saveCart();
             updateCart();
             toggleCart();
         }
