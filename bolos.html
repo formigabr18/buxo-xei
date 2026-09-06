@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUXO XÊI - Bolos e Tortas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1a0000;
+            --card-bg: rgba(28, 3, 3, 0.95);
+            --text-light: #fff;
+            --text-muted: #ffcc99;
+            --accent: #ff6b00;
+            --accent-hover: #ffc107;
+            --glow: rgba(255, 193, 7, 0.5);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(180deg, #1a0000 0%, #2d0000 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+        .container { max-width: 950px; margin: 0 auto; }
+        .back-btn {
+            position: fixed; top: 20px; left: 20px; background: rgba(0,0,0,0.7);
+            color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none;
+            display: flex; align-items: center; gap: 8px; font-weight: bold; z-index: 1000;
+            border: 2px solid var(--accent-hover);
+        }
+        header { text-align: center; margin-bottom: 40px; margin-top: 70px; }
+        .logo { max-width: 200px; border-radius: 25px; border: 4px solid var(--glow); box-shadow: 0 0 30px var(--glow); }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; margin-top: 15px; background: linear-gradient(90deg, #ffc107, #ff6b00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section { background: var(--card-bg); border: 1px solid var(--glow); padding: 30px 25px; margin-bottom: 35px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: var(--accent-hover); text-align: center; margin-bottom: 30px; text-shadow: 0 0 15px var(--glow); }
+        .menu-item {
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,193,7,0.2);
+        }
+        .menu-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+        .icon { font-size: 2.4rem; width: 60px; height: 60px; background: rgba(255,107,0,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+        h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
+        .desc { color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
+        .sizes { display: flex; gap: 12px; flex-wrap: wrap; margin: 15px 0; }
+        .size {
+            background: rgba(255, 193, 7, 0.15);
+            padding: 11px 18px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .size:hover { background: var(--accent); color: white; }
+        .size.selected { 
+            background: var(--accent-hover); 
+            color: white; 
+            border-color: #fff; 
+        }
+        .obs {
+            width: 100%; padding: 12px; background: rgba(255,255,255,0.08);
+            border: 1px solid var(--glow); border-radius: 12px; color: white;
+            margin: 12px 0; resize: vertical;
+        }
+        .action-buttons { display: flex; gap: 12px; margin-top: 10px; }
+        .add-btn {
+            flex: 1; padding: 15px; border: none; border-radius: 15px;
+            font-weight: bold; cursor: pointer;
+            background: linear-gradient(135deg, var(--accent), #ff4500); color: white;
+        }
+        .cart-toggle {
+            position: fixed; bottom: 25px; right: 25px; background: white; color: #c62828;
+            width: 75px; height: 75px; border-radius: 50%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            cursor: pointer; z-index: 1000; border: 4px solid var(--accent-hover);
+        }
+        .cart {
+            position: fixed; bottom: 110px; right: 20px; width: 380px; max-height: 75vh;
+            background: var(--card-bg); border-radius: 20px; padding: 20px; display: none;
+            z-index: 2000; box-shadow: 0 20px 50px rgba(0,0,0,0.7); overflow-y: auto;
+            border: 1px solid var(--glow);
+        }
+        .toast {
+            position: fixed;
+            bottom: 110px;
+            right:25px;
+            background:rgba(30,30,30,0.95);
+            color:white;
+            padding:12px 18px;
+            border-radius:14px;
+            font-size:.95rem;
+            opacity:0;
+            transform:translateY(20px);
+            transition:all .4s ease;
+            z-index:9999;
+            border-left:4px solid #25D366;
+            backdrop-filter:blur(10px);
+        }
+        .toast.show{opacity:1;transform:translateY(0);}
+        .payment{
+            width:100%;
+            padding:12px;
+            margin:15px 0;
+            border-radius:12px;
+            border:1px solid rgba(255,193,7,.4);
+            background:rgba(255,255,255,.08);
+            color:white;
+        }
+        .payment option{color:black;}
+        .customer-box{
+            background:rgba(255,255,255,0.06);
+            padding:15px;
+            border-radius:16px;
+            margin:15px 0;
+            border:1px solid rgba(255,193,7,.3);
+        }
+        .customer-box label{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-bottom:10px;
+            font-weight:bold;
+            color:#ffc107;
+        }
+        .client-name{
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:12px;
+            background:rgba(255,255,255,.08);
+            color:white;
+            outline:none;
+            font-size:1rem;
+            transition:.3s;
+        }
+        .client-name:focus{
+            border:1px solid #ffc107;
+            box-shadow:0 0 12px rgba(255,193,7,.4);
+        }
+        .client-name::placeholder{
+            color:rgba(255,255,255,.5);
+        }
+        .coupon-box {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .coupon-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,193,7,.4);
+            background: rgba(255,255,255,.08);
+            color: white;
+            outline: none;
+        }
+        .coupon-input::placeholder {
+            color: rgba(255,255,255,.5);
+        }
+        .coupon-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .coupon-btn:hover {
+            background: var(--accent-hover);
+        }
+        .discount-info {
+            margin: 8px 0;
+            font-size: 0.9rem;
+            color: #25D366;
+            display: none;
+        }
+        .total-final {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: var(--accent-hover);
+        }
+        .carousel-section {
+            margin-bottom: 40px;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .carousel-wrapper {
+            position: relative;
+            max-width: 950px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #2b0000, #1a0000);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .carousel-slide {
+            min-width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(145deg, rgba(255,107,0,0.15), rgba(255,193,7,0.08));
+        }
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255,193,7,0.25), transparent 60%);
+            pointer-events: none;
+        }
+        .promo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b00, #ff4500);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255,107,0,0.5);
+        }
+        .carousel-slide .promo-icon {
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(255,193,7,0.6));
+        }
+        .carousel-slide h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.1rem;
+            color: #fff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(255,193,7,0.5);
+        }
+        .carousel-slide p {
+            color: #ffcc99;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            max-width: 480px;
+            margin: 0 auto 22px;
+        }
+        .carousel-slide .promo-price {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffc107, #ff6b00);
+            color: #1a0000;
+            font-weight: 900;
+            font-size: 1.6rem;
+            padding: 14px 32px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(255,193,7,0.5);
+            letter-spacing: 0.5px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid #ffc107;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .carousel-btn:hover {
+            background: #ff6b00;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255,107,0,0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-btn.prev { left: 18px; }
+        .carousel-btn.next { right: 18px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px 0 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+        }
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .dot.active {
+            background: #ffc107;
+            box-shadow: 0 0 12px #ffc107;
+            transform: scale(1.25);
+            border-color: #fff;
+        }
+        @media (max-width: 600px) {
+            .carousel-slide { padding: 40px 55px; }
+            .carousel-slide h3 { font-size: 1.6rem; }
+            .carousel-slide .promo-icon { font-size: 3.5rem; }
+            .carousel-slide .promo-price { font-size: 1.3rem; padding: 12px 24px; }
+            .carousel-btn { width: 42px; height: 42px; font-size: 1.15rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast"></div>
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+    </a>
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Buxo Xêi" class="logo">
+            <h1>BOLOS E TORTAS</h1>
+        </header>
+
+        <section class="section carousel-section">
+            <h2>🔥 Novidades e Promoções</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="moveCarousel(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide">
+                        <span class="promo-badge">Novidade</span>
+                        <span class="promo-icon">🍫</span>
+                        <h3>Bolo de Chocolate</h3>
+                        <p>Bolo de chocolate com calda de chocolate</p>
+                        <div class="promo-price">R$ 6,00</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <span class="promo-badge">Salgada</span>
+                        <span class="promo-icon">🍗</span>
+                        <h3>Torta de Frango</h3>
+                        <p>Torta salgada de frango</p>
+                        <div class="promo-price">R$ 6,00</div>
+                    </div>
+                </div>
+                <button class="carousel-btn next" onclick="moveCarousel(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Bolos</h2>
+            <div class="menu-item" data-name="Bolo de Chocolate com Calda">
+                <div class="menu-header"><div class="icon">🍫</div><h3>Bolo de Chocolate com Calda</h3></div>
+                <p class="desc">Bolo de chocolate com calda de chocolate</p>
+                <div class="sizes">
+                    <div class="size selected" data-size="Unidade" data-price="6">Unidade - R$ 6,00</div>
+                </div>
+                <textarea class="obs" placeholder="Observações..."></textarea>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Tortas</h2>
+            <div class="menu-item" data-name="Torta de Frango">
+                <div class="menu-header"><div class="icon">🍗</div><h3>Torta de Frango</h3></div>
+                <p class="desc">Torta salgada de frango</p>
+                <div class="sizes">
+                    <div class="size selected" data-size="Unidade" data-price="6">Unidade - R$ 6,00</div>
+                </div>
+                <textarea class="obs" placeholder="Observações..."></textarea>
+                <div class="action-buttons">
+                    <button class="add-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <button class="cart-toggle" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart" style="font-size:1.7rem;"></i>
+        <span>Carrinho</span>
+    </button>
+    <div id="cart" class="cart">
+        <h3>🛒 Meu Carrinho</h3>
+        <div class="customer-box">
+            <label for="client-name">
+                <i class="fas fa-user"></i>
+                Nome para entrega
+            </label>
+            <input type="text" id="client-name" class="client-name" placeholder="Digite seu nome"/>
+        </div>
+        <div class="coupon-box">
+            <input type="text" id="coupon-code" class="coupon-input" placeholder="Cupom de desconto">
+            <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
+        </div>
+        <div id="discount-info" class="discount-info"></div>
+        <select id="payment-method" class="payment">
+            <option value="">Forma de pagamento</option>
+            <option>Pix</option>
+            <option>Dinheiro</option>
+            <option>Cartão de Crédito</option>
+            <option>Cartão de Débito</option>
+        </select>
+        <div id="cart-items"></div>
+        <div class="total" id="total">Total: R$ 0,00</div>
+        <div class="total-final" id="total-final">Total com desconto: R$ 0,00</div>
+        <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">Enviar no WhatsApp</button>
+    </div>
+
+    <script>
+        let cart = [];
+        let discount = 0;
+        const validCoupons = { "KAR5": 5, "GEN5": 5 };
+
+        function showToast(message){
+            const toast = document.getElementById("toast");
+            toast.textContent = "✓ " + message;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
+        }
+
+        document.querySelectorAll('.menu-item').forEach(item => {
+            const sizes = item.querySelectorAll('.size');
+            sizes.forEach(size => {
+                size.addEventListener('click', () => {
+                    sizes.forEach(s => s.classList.remove('selected'));
+                    size.classList.add('selected');
+                });
+            });
+
+            item.querySelector('.add-btn').addEventListener('click', () => {
+                const selectedSize = item.querySelector('.size.selected');
+                if (!selectedSize) return alert("Selecione um tamanho!");
+
+                const name = item.querySelector('h3').textContent;
+                const size = selectedSize.dataset.size;
+                const price = parseFloat(selectedSize.dataset.price);
+                const obs = item.querySelector('.obs').value.trim();
+
+                cart.push({ name, size, price, obs, type: 'unidade' });
+                showToast(`${name} adicionado ao carrinho`);
+                updateCart();
+            });
+        });
+
+        function toggleCart() {
+            const cartEl = document.getElementById('cart');
+            cartEl.style.display = cartEl.style.display === 'block' ? 'none' : 'block';
+            if (cartEl.style.display === 'block') updateCart();
+        }
+
+        function updateCart() {
+            const itemsEl = document.getElementById('cart-items');
+            const totalEl = document.getElementById('total');
+            const totalFinalEl = document.getElementById('total-final');
+            const discountInfoEl = document.getElementById('discount-info');
+            itemsEl.innerHTML = '';
+            let subtotal = 0;
+            cart.forEach((item, i) => {
+                const div = document.createElement('div');
+                div.style.margin = "10px 0";
+                div.style.padding = "8px";
+                div.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
+                div.innerHTML = `
+                    <strong>${item.name} - ${item.size}</strong><br>
+                    ${item.obs ? `Obs: ${item.obs}<br>` : ''}
+                    <strong>R$ ${item.price.toFixed(2)}</strong>
+                    <button onclick="removeFromCart(${i})" style="float:right;background:red;color:white;border:none;padding:5px 10px;border-radius:8px;">Remover</button>
+                `;
+                itemsEl.appendChild(div);
+                subtotal += item.price;
+            });
+            const valorDesconto = subtotal * (discount / 100);
+            const valorFinal = subtotal - valorDesconto;
+            totalEl.textContent = `Subtotal: R$ ${subtotal.toFixed(2)}`;
+            totalFinalEl.textContent = `Total com desconto: R$ ${valorFinal.toFixed(2)}`;
+            if (discount > 0) {
+                discountInfoEl.style.display = "block";
+                discountInfoEl.textContent = `Desconto aplicado: ${discount}% (-R$ ${valorDesconto.toFixed(2)})`;
+            } else {
+                discountInfoEl.style.display = "none";
+            }
+        }
+
+        function removeFromCart(i) {
+            cart.splice(i, 1);
+            updateCart();
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById("coupon-code").value.trim().toUpperCase();
+            if (validCoupons.hasOwnProperty(code)) {
+                discount = validCoupons[code];
+                showToast(`Cupom aplicado! Desconto de ${discount}%`);
+                updateCart();
+            } else {
+                discount = 0;
+                showToast("Cupom inválido ou expirado");
+                updateCart();
+            }
+        }
+
+        function checkout() {
+            const name = document.getElementById('client-name').value.trim();
+            if (!name) return showToast("Digite seu nome!");
+            const payment = document.getElementById("payment-method").value;
+            if (!payment) return showToast("Escolha a forma de pagamento");
+            if (cart.length === 0) return alert("Carrinho vazio!");
+            let subtotal = 0;
+            cart.forEach(item => subtotal += item.price);
+            const valorDesconto = subtotal * (discount / 100);
+            const valorFinal = subtotal - valorDesconto;
+            let message = `*Pedido - Buxo Xêi (Bolos e Tortas)*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
+            cart.forEach(item => {
+                message += `${item.name} - ${item.size}\n`;
+                if (item.obs) message += `Obs: ${item.obs}\n`;
+                message += `Valor: R$ ${item.price.toFixed(2)}\n\n`;
+            });
+            message += `*Subtotal: R$ ${subtotal.toFixed(2)}*\n`;
+            if (discount > 0) {
+                message += `*Desconto: -R$ ${valorDesconto.toFixed(2)} (${discount}%)*\n`;
+            }
+            message += `*Total a pagar: R$ ${valorFinal.toFixed(2)}*`;
+            const phone = "558496955210";
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+            cart = [];
+            discount = 0;
+            updateCart();
+            toggleCart();
+        }
+
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const dotsContainer = document.getElementById('carouselDots');
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+        function moveCarousel(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+        setInterval(() => moveCarousel(1), 5000);
+    </script>
+</body>
+</html>
