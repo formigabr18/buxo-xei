@@ -216,6 +216,7 @@
             margin: 15px 0;
             color: var(--accent-hover);
         }
+        /* Carrossel */
         .carousel-section {
             margin-bottom: 40px;
             padding: 0 !important;
@@ -344,11 +345,24 @@
             border-color: #fff;
         }
         @media (max-width: 600px) {
-            .carousel-slide { padding: 40px 55px; }
-            .carousel-slide h3 { font-size: 1.6rem; }
-            .carousel-slide .promo-icon { font-size: 3.5rem; }
-            .carousel-slide .promo-price { font-size: 1.3rem; padding: 12px 24px; }
-            .carousel-btn { width: 42px; height: 42px; font-size: 1.15rem; }
+            .carousel-slide {
+                padding: 40px 55px;
+            }
+            .carousel-slide h3 {
+                font-size: 1.6rem;
+            }
+            .carousel-slide .promo-icon {
+                font-size: 3.5rem;
+            }
+            .carousel-slide .promo-price {
+                font-size: 1.3rem;
+                padding: 12px 24px;
+            }
+            .carousel-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.15rem;
+            }
         }
     </style>
 </head>
@@ -367,6 +381,7 @@
             </div>
         </header>
 
+        <!-- ========== NOVIDADES E PROMOÇÕES ========== -->
         <section class="section carousel-section">
             <h2>🔥 Novidades e Promoções</h2>
             <div class="carousel-wrapper">
@@ -396,8 +411,10 @@
             </div>
         </section>
 
+        <!-- BOLOS -->
         <section class="section">
             <h2>Bolos</h2>
+
             <div class="menu-item" data-name="Bolo de Chocolate com Calda">
                 <div class="menu-header"><div class="icon">🍫</div><h3>Bolo de Chocolate com Calda</h3></div>
                 <p class="desc">Bolo de chocolate com calda de chocolate</p>
@@ -411,8 +428,10 @@
             </div>
         </section>
 
+        <!-- TORTAS -->
         <section class="section">
             <h2>Tortas</h2>
+
             <div class="menu-item" data-name="Torta de Frango">
                 <div class="menu-header"><div class="icon">🍗</div><h3>Torta de Frango</h3></div>
                 <p class="desc">Torta salgada de frango</p>
@@ -459,9 +478,16 @@
     </div>
 
     <script>
-        let cart = [];
-        let discount = 0;
-        const validCoupons = { "KAR5": 5, "GEN5": 5 };
+        let cart = JSON.parse(localStorage.getItem('buxoCart') || '[]');
+        let discount = parseInt(localStorage.getItem('buxoDiscount') || '0');
+        const validCoupons = {
+            "KAR5": 5,
+            "GEN5": 5
+        };
+        function saveCart() {
+            localStorage.setItem('buxoCart', JSON.stringify(cart));
+            localStorage.setItem('buxoDiscount', discount);
+        }
 
         function showToast(message){
             const toast = document.getElementById("toast");
@@ -472,6 +498,7 @@
 
         document.querySelectorAll('.menu-item').forEach(item => {
             const sizes = item.querySelectorAll('.size');
+
             sizes.forEach(size => {
                 size.addEventListener('click', () => {
                     sizes.forEach(s => s.classList.remove('selected'));
@@ -488,8 +515,15 @@
                 const price = parseFloat(selectedSize.dataset.price);
                 const obs = item.querySelector('.obs').value.trim();
 
-                cart.push({ name, size, price, obs, type: 'unidade' });
+                cart.push({ 
+                    name, 
+                    size, 
+                    price: price, 
+                    obs, 
+                    type: 'unidade' 
+                });
                 showToast(`${name} adicionado ao carrinho`);
+                saveCart();
                 updateCart();
             });
         });
@@ -513,7 +547,9 @@
                 div.style.padding = "8px";
                 div.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
                 div.innerHTML = `
-                    <strong>${item.name} - ${item.size}</strong><br>
+                    <strong>${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}</strong><br>
+                    ${item.borda ? `Borda: ${item.borda}<br>` : ''}
+                    ${item.extra ? `Extra: ${item.extra}<br>` : ''}
                     ${item.obs ? `Obs: ${item.obs}<br>` : ''}
                     <strong>R$ ${item.price.toFixed(2)}</strong>
                     <button onclick="removeFromCart(${i})" style="float:right;background:red;color:white;border:none;padding:5px 10px;border-radius:8px;">Remover</button>
@@ -535,6 +571,7 @@
 
         function removeFromCart(i) {
             cart.splice(i, 1);
+            saveCart();
             updateCart();
         }
 
@@ -543,10 +580,12 @@
             if (validCoupons.hasOwnProperty(code)) {
                 discount = validCoupons[code];
                 showToast(`Cupom aplicado! Desconto de ${discount}%`);
+                saveCart();
                 updateCart();
             } else {
                 discount = 0;
                 showToast("Cupom inválido ou expirado");
+                saveCart();
                 updateCart();
             }
         }
@@ -561,9 +600,11 @@
             cart.forEach(item => subtotal += item.price);
             const valorDesconto = subtotal * (discount / 100);
             const valorFinal = subtotal - valorDesconto;
-            let message = `*Pedido - Buxo Xêi (Bolos e Tortas)*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
+            let message = `*Pedido - Buxo Xêi*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
             cart.forEach(item => {
-                message += `${item.name} - ${item.size}\n`;
+                message += `${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}\n`;
+                if (item.borda) message += `Borda: ${item.borda}\n`;
+                if (item.extra) message += `Extra: ${item.extra}\n`;
                 if (item.obs) message += `Obs: ${item.obs}\n`;
                 message += `Valor: R$ ${item.price.toFixed(2)}\n\n`;
             });
@@ -576,10 +617,12 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
             cart = [];
             discount = 0;
+            saveCart();
             updateCart();
             toggleCart();
         }
 
+        /* ========== CARROSSEL ========== */
         let currentSlide = 0;
         const track = document.getElementById('carouselTrack');
         const slides = document.querySelectorAll('.carousel-slide');
@@ -606,7 +649,9 @@
             currentSlide = index;
             updateCarousel();
         }
-        setInterval(() => moveCarousel(1), 5000);
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
     </script>
 </body>
 </html>
