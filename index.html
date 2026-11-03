@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,6 +7,7 @@
     <title>Buxo Xêi - Cardápio Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         :root {
             --fire-base: #ff4500;
@@ -15,18 +17,21 @@
             --glow: #ffc400;
             --smoke: rgba(255, 100, 0, 0.1);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
+
         html, body {
             height: 100%;
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
             background: #1a0000;
         }
+
         body {
             min-height: 100vh;
             display: flex;
@@ -37,6 +42,7 @@
             text-align: center;
             position: relative;
         }
+
         .fire-container {
             position: fixed;
             bottom: 0;
@@ -46,6 +52,7 @@
             z-index: 1;
             pointer-events: none;
         }
+
         .flame {
             position: absolute;
             bottom: 0;
@@ -57,15 +64,24 @@
             opacity: 0.8;
             animation: flameRise 2s infinite ease-in-out;
         }
+
         .flame:nth-child(1) { left: 15%; width: 80px; height: 120px; animation-delay: 0s; }
         .flame:nth-child(2) { left: 30%; width: 70px; height: 110px; animation-delay: 0.3s; }
         .flame:nth-child(3) { left: 45%; width: 90px; height: 130px; animation-delay: 0.6s; }
         .flame:nth-child(4) { left: 60%; width: 75px; height: 115px; animation-delay: 0.9s; }
         .flame:nth-child(5) { left: 75%; width: 85px; height: 125px; animation-delay: 0.4s; }
+
         @keyframes flameRise {
-            0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.7; }
-            50% { transform: translateY(-30px) scaleY(1.4); opacity: 1; }
+            0%, 100% {
+                transform: translateY(0) scaleY(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-30px) scaleY(1.4);
+                opacity: 1;
+            }
         }
+
         .sparks {
             position: fixed;
             bottom: 0;
@@ -75,6 +91,7 @@
             pointer-events: none;
             z-index: 2;
         }
+
         .spark {
             position: absolute;
             width: 4px;
@@ -85,12 +102,20 @@
             opacity: 0;
             animation: sparkUp 3.5s infinite ease-out;
         }
+
         @keyframes sparkUp {
-            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.5);
+            }
             15% { opacity: 1; }
             85% { opacity: 0.3; }
-            100% { opacity: 0; transform: translateY(-130vh) scale(0.1) rotate(360deg); }
+            100% {
+                opacity: 0;
+                transform: translateY(-130vh) scale(0.1) rotate(360deg);
+            }
         }
+
         .heat {
             position: fixed;
             bottom: 0;
@@ -103,10 +128,12 @@
             animation: heatWave 4s infinite ease-in-out;
             z-index: 1;
         }
+
         @keyframes heatWave {
             0%, 100% { transform: translateX(-20px); }
             50% { transform: translateX(20px); }
         }
+
         .main-content {
             display: flex;
             flex-direction: column;
@@ -118,10 +145,12 @@
             z-index: 10;
             position: relative;
         }
+
         .logo-container {
             filter: drop-shadow(0 0 30px var(--glow));
             animation: fireGlow 2s infinite alternate;
         }
+
         .logo {
             max-width: 280px;
             width: 80%;
@@ -130,11 +159,16 @@
             border: 3px solid rgba(255, 193, 7, 0.4);
             transition: transform 0.3s ease;
         }
-        .logo:hover { transform: scale(1.05); }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
         @keyframes fireGlow {
             from { filter: drop-shadow(0 0 30px var(--glow)); }
             to { filter: drop-shadow(0 0 50px #ff4500); }
         }
+
         .brand-name {
             font-family: 'Montserrat', sans-serif;
             font-size: clamp(2.2rem, 8vw, 3.2rem);
@@ -146,15 +180,17 @@
             text-shadow: 0 0 20px #ff4500, 0 0 40px #ff8c00;
             z-index: 10;
         }
+
         .buttons {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
             width: 100%;
-            max-width: 520px;
+            max-width: 600px;
             z-index: 10;
         }
+
         .button {
             background: linear-gradient(135deg, #ffb74d, #ff6b00);
             color: white;
@@ -162,14 +198,14 @@
             border: none;
             border-radius: 16px;
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            font-size: clamp(0.95rem, 3.5vw, 1.2rem);
             font-weight: 700;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             flex: 1;
-            min-width: 150px;
-            max-width: 190px;
+            min-width: 140px;
+            max-width: 180px;
             height: 64px;
             position: relative;
             overflow: hidden;
@@ -179,26 +215,36 @@
             box-shadow: 0 8px 20px rgba(255, 107, 0, 0.5);
             transition: all 0.3s ease;
         }
+
         .button::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             animation: shine 2s infinite;
             z-index: 1;
         }
+
         @keyframes shine {
             0% { left: -100%; }
             50% { left: 100%; }
             100% { left: 100%; }
         }
-        .button span { position: relative; z-index: 2; }
+
+        .button span {
+            position: relative;
+            z-index: 2;
+        }
+
         .button:hover {
             background: linear-gradient(135deg, #ffc400, #ff4500);
             transform: translateY(-6px);
             box-shadow: 0 15px 30px rgba(255, 69, 0, 0.6);
         }
+
         .instagram-floating {
             position: fixed;
             bottom: 30px;
@@ -218,21 +264,32 @@
             z-index: 9999;
             border: 2px solid rgba(255, 193, 7, 0.4);
         }
+
         .instagram-floating:hover {
             transform: translateX(-50%) translateY(-6px);
         }
+
         @media (max-width: 768px) {
             .main-content { gap: 30px; }
             .logo { max-width: 180px; }
             .button { height: 58px; }
         }
+
         @media (max-width: 480px) {
             .logo { max-width: 150px; }
-            .button { height: 54px; flex: 1 1 45%; }
+            .buttons { gap: 10px; }
+            .button {
+                height: 54px;
+                flex: 1 1 45%;
+                min-width: 120px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
+
 <body>
+
     <div class="fire-container">
         <div class="flame"></div>
         <div class="flame"></div>
@@ -240,33 +297,54 @@
         <div class="flame"></div>
         <div class="flame"></div>
     </div>
+
     <div class="sparks" id="sparks"></div>
     <div class="heat"></div>
+
     <div class="main-content">
+
         <div class="logo-container">
-            <img src="logo.png" alt="Buxo xei" class="logo">
+            <img src="logo.png" alt="Buxo Xêi" class="logo">
         </div>
+
         <h1 class="brand-name">Buxo Xêi</h1>
+
         <div class="buttons">
-            <a href="pizzas.html" class="button"><span>Pizzas</span></a>
-            <a href="bolos.html" class="button"><span>Bolos e Tortas</span></a>
+            <a href="pizzas.html" class="button">
+                <span>Pizzas</span>
+            </a>
+
+            <a href="bolos.html" class="button">
+                <span>Bolos e Tortas</span>
+            </a>
+
+            <a href="calzonas.html" class="button">
+                <span>Calzonas</span>
+            </a>
         </div>
+
     </div>
+
     <a href="https://instagram.com/buxoxeipizza" target="_blank" class="instagram-floating">
         <i class="fab fa-instagram"></i>
         <span>@Buxoxeipizza</span>
     </a>
+
     <script>
         const sparksContainer = document.getElementById('sparks');
+
         for (let i = 0; i < 25; i++) {
             const spark = document.createElement('div');
+
             spark.classList.add('spark');
             spark.style.left = `${15 + Math.random() * 60}%`;
             spark.style.bottom = `${Math.random() * 50}px`;
             spark.style.animationDelay = `${Math.random() * 2}s`;
             spark.style.animationDuration = `${2 + Math.random() * 2}s`;
+
             sparksContainer.appendChild(spark);
         }
     </script>
+
 </body>
 </html>
