@@ -316,9 +316,11 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
 <header>
     <img src="logo.png" alt="Buxo Xêi" class="logo">
     <h1>PIZZAS</h1>
+
     <div class="nav-tabs">
         <a href="pizzas.html" class="nav-tab active">🍕 Pizzas</a>
         <a href="bolos.html" class="nav-tab">🎂 Bolos e Tortas</a>
+        <a href="calzones.html" class="nav-tab">🥟 Calzones</a>
     </div>
 </header>
 
@@ -665,17 +667,12 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
         <input type="text" id="client-name" class="client-name" placeholder="Digite seu nome">
     </div>
 
-    <!-- ENDEREÇO DE ENTREGA -->
     <div class="address-box">
         <label for="delivery-address">
             <i class="fas fa-map-marker-alt"></i> Endereço de entrega
         </label>
-        <textarea
-            id="delivery-address"
-            class="address-input"
-            placeholder="Digite seu endereço completo..."
-            rows="3"
-        ></textarea>
+        <textarea id="delivery-address" class="address-input"
+            placeholder="Digite seu endereço completo..." rows="3"></textarea>
     </div>
 
     <div class="coupon-box">
@@ -771,7 +768,6 @@ document.querySelectorAll('.menu-item').forEach(item => {
         });
     });
 
-    /* ADICIONAR PIZZA INTEIRA */
     item.querySelector('.add-btn').addEventListener('click', () => {
         const selectedSize = item.querySelector('.size.selected');
         const selectedBorda = item.querySelector('.borda.selected');
@@ -800,7 +796,6 @@ document.querySelectorAll('.menu-item').forEach(item => {
         updateCart();
     });
 
-    /* MONTAR PIZZA DE DOIS SABORES */
     const halfButton = item.querySelector('.half-btn');
 
     if (halfButton) {
@@ -819,13 +814,7 @@ document.querySelectorAll('.menu-item').forEach(item => {
             const obs = item.querySelector('.obs').value.trim();
 
             if (!halfPizza) {
-                halfPizza = {
-                    name,
-                    size,
-                    price: totalItem,
-                    borda: bordaNome,
-                    obs
-                };
+                halfPizza = { name, size, price: totalItem, borda: bordaNome, obs };
                 showToast(`Primeira metade: ${name}`);
             } else {
                 if (halfPizza.size !== size) {
