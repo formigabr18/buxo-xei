@@ -171,27 +171,39 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
     background: rgba(255,255,255,.08); color: white;
 }
 .payment option { color: black; }
-.customer-box {
+
+.customer-box, .address-box {
     background: rgba(255,255,255,0.06);
     padding: 15px; border-radius: 16px;
     margin: 15px 0; border: 1px solid rgba(255,193,7,.3);
 }
-.customer-box label {
+.customer-box label, .address-box label {
     display: flex; align-items: center;
     gap: 8px; margin-bottom: 10px;
     font-weight: bold; color: #ffc107;
 }
-.client-name {
-    width: 100%; padding: 14px; border: none;
-    border-radius: 12px; background: rgba(255,255,255,.08);
+.client-name, .address-input {
+    width: 100%; padding: 14px;
+    border: 1px solid rgba(255,193,7,.3);
+    border-radius: 12px;
+    background: rgba(255,255,255,.08);
     color: white; outline: none; font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
 }
-.client-name:focus { border: 1px solid #ffc107; box-shadow: 0 0 12px rgba(255,193,7,.4); }
-.client-name::placeholder, .coupon-input::placeholder { color: rgba(255,255,255,.5); }
+.address-input {
+    min-height: 85px;
+    resize: vertical;
+}
+.client-name:focus, .address-input:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 12px rgba(255,193,7,.4);
+}
+.client-name::placeholder, .address-input::placeholder,
+.coupon-input::placeholder { color: rgba(255,255,255,.5); }
 
 .coupon-box { display: flex; gap: 8px; margin: 15px 0; }
 .coupon-input {
-    flex: 1; padding: 12px; border-radius: 12px;
+    flex: 1; min-width: 0; padding: 12px; border-radius: 12px;
     border: 1px solid rgba(255,193,7,.4);
     background: rgba(255,255,255,.08); color: white;
 }
@@ -316,7 +328,17 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
     <button class="carousel-btn prev" onclick="moveCarousel(-1)">
         <i class="fas fa-chevron-left"></i>
     </button>
+
     <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide">
+            <span class="promo-badge">Novidade</span>
+            <span class="promo-icon">🍕</span>
+            <h3>Agora tem tamanho GG!</h3>
+            <p>Mais pizza para matar sua fome! Peça sua pizza favorita também no tamanho GG.</p>
+            <div class="promo-price">GG a partir de R$ 50,00</div>
+        </div>
+
         <div class="carousel-slide">
             <span class="promo-badge">Novidade</span>
             <span class="promo-icon">🍕</span>
@@ -324,6 +346,7 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
             <p>1 Esfirra de Carne + 1 Esfirra de Frango + 1 Esfirra de Chocolate</p>
             <div class="promo-price">R$ 15,00</div>
         </div>
+
         <div class="carousel-slide">
             <span class="promo-badge">Novidade</span>
             <span class="promo-icon">🐔</span>
@@ -331,7 +354,9 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
             <p>Molho de tomate, cebola, tomate, muçarela, frango desfiado cremoso e orégano</p>
             <div class="promo-price">A partir de R$ 27</div>
         </div>
+
     </div>
+
     <button class="carousel-btn next" onclick="moveCarousel(1)">
         <i class="fas fa-chevron-right"></i>
     </button>
@@ -652,15 +677,32 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
 
 <div id="cart" class="cart">
     <h3>🛒 Meu Carrinho</h3>
+
     <div class="customer-box">
         <label for="client-name"><i class="fas fa-user"></i> Nome para entrega</label>
         <input type="text" id="client-name" class="client-name" placeholder="Digite seu nome">
     </div>
+
+    <!-- ENDEREÇO DE ENTREGA -->
+    <div class="address-box">
+        <label for="delivery-address">
+            <i class="fas fa-map-marker-alt"></i> Endereço de entrega
+        </label>
+        <textarea
+            id="delivery-address"
+            class="address-input"
+            placeholder="Digite seu endereço completo..."
+            rows="3"
+        ></textarea>
+    </div>
+
     <div class="coupon-box">
         <input type="text" id="coupon-code" class="coupon-input" placeholder="Cupom de desconto">
         <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
     </div>
+
     <div id="discount-info" class="discount-info"></div>
+
     <select id="payment-method" class="payment">
         <option value="">Forma de pagamento</option>
         <option>Pix</option>
@@ -668,9 +710,11 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
         <option>Cartão de Crédito</option>
         <option>Cartão de Débito</option>
     </select>
+
     <div id="cart-items"></div>
     <div class="total" id="total">Total: R$ 0,00</div>
     <div class="total-final" id="total-final">Total com desconto: R$ 0,00</div>
+
     <button onclick="checkout()" style="width:100%;padding:16px;background:#25D366;color:white;border:none;border-radius:15px;font-size:1.1rem;font-weight:bold;margin-top:15px;">
         Enviar no WhatsApp
     </button>
@@ -901,8 +945,10 @@ function applyCoupon() {
 
 function checkout() {
     const name = document.getElementById('client-name').value.trim();
+    const address = document.getElementById('delivery-address').value.trim();
 
     if (!name) return showToast("Digite seu nome!");
+    if (!address) return showToast("Digite seu endereço de entrega!");
 
     const payment = document.getElementById("payment-method").value;
     if (!payment) return showToast("Escolha a forma de pagamento");
@@ -914,7 +960,20 @@ function checkout() {
     const valorDesconto = subtotal * (discount / 100);
     const valorFinal = subtotal - valorDesconto;
 
-    let message = `*Pedido - Buxo Xêi*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
+    let message = `*PEDIDO - BUXO XÊI* 🍕
+
+*CLIENTE*
+Nome: ${name}
+
+*ENDEREÇO DE ENTREGA*
+${address}
+
+*PAGAMENTO*
+${payment}
+
+*PEDIDO:*
+
+`;
 
     cart.forEach(item => {
         message += `${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}\n`;
