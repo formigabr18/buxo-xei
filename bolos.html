@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -86,10 +87,10 @@
             border: 2px solid transparent;
         }
         .size:hover { background: var(--accent); color: white; }
-        .size.selected { 
-            background: var(--accent-hover); 
-            color: white; 
-            border-color: #fff; 
+        .size.selected {
+            background: var(--accent-hover);
+            color: white;
+            border-color: #fff;
         }
         .obs {
             width: 100%; padding: 12px; background: rgba(255,255,255,0.08);
@@ -363,21 +364,34 @@
                 height: 42px;
                 font-size: 1.15rem;
             }
+            .cart {
+                width: calc(100% - 30px);
+                right: 15px;
+            }
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 10px 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div id="toast" class="toast"></div>
+
     <a href="index.html" class="back-btn">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
     </a>
+
     <div class="container">
         <header>
             <img src="logo.png" alt="Buxo Xêi" class="logo">
             <h1>BOLOS E TORTAS</h1>
+
             <div class="nav-tabs">
                 <a href="pizzas.html" class="nav-tab">🍕 Pizzas</a>
                 <a href="bolos.html" class="nav-tab active">🎂 Bolos e Tortas</a>
+                <a href="calzones.html" class="nav-tab">🥟 Calzones</a>
             </div>
         </header>
 
@@ -388,6 +402,7 @@
                 <button class="carousel-btn prev" onclick="moveCarousel(-1)">
                     <i class="fas fa-chevron-left"></i>
                 </button>
+
                 <div class="carousel-track" id="carouselTrack">
                     <div class="carousel-slide">
                         <span class="promo-badge">Novidade</span>
@@ -396,6 +411,7 @@
                         <p>Bolo de chocolate com calda de chocolate</p>
                         <div class="promo-price">R$ 6,00</div>
                     </div>
+
                     <div class="carousel-slide">
                         <span class="promo-badge">Salgada</span>
                         <span class="promo-icon">🍗</span>
@@ -404,9 +420,11 @@
                         <div class="promo-price">R$ 6,00</div>
                     </div>
                 </div>
+
                 <button class="carousel-btn next" onclick="moveCarousel(1)">
                     <i class="fas fa-chevron-right"></i>
                 </button>
+
                 <div class="carousel-dots" id="carouselDots"></div>
             </div>
         </section>
@@ -416,12 +434,20 @@
             <h2>Bolos</h2>
 
             <div class="menu-item" data-name="Bolo de Chocolate com Calda">
-                <div class="menu-header"><div class="icon">🍫</div><h3>Bolo de Chocolate com Calda</h3></div>
-                <p class="desc">Bolo de chocolate com calda de chocolate</p>
-                <div class="sizes">
-                    <div class="size selected" data-size="Unidade" data-price="6">Unidade - R$ 6,00</div>
+                <div class="menu-header">
+                    <div class="icon">🍫</div>
+                    <h3>Bolo de Chocolate com Calda</h3>
                 </div>
+                <p class="desc">Bolo de chocolate com calda de chocolate</p>
+
+                <div class="sizes">
+                    <div class="size selected" data-size="Unidade" data-price="6">
+                        Unidade - R$ 6,00
+                    </div>
+                </div>
+
                 <textarea class="obs" placeholder="Observações..."></textarea>
+
                 <div class="action-buttons">
                     <button class="add-btn">Adicionar ao Carrinho</button>
                 </div>
@@ -433,12 +459,20 @@
             <h2>Tortas</h2>
 
             <div class="menu-item" data-name="Torta de Frango">
-                <div class="menu-header"><div class="icon">🍗</div><h3>Torta de Frango</h3></div>
-                <p class="desc">Torta salgada de frango</p>
-                <div class="sizes">
-                    <div class="size selected" data-size="Unidade" data-price="6">Unidade - R$ 6,00</div>
+                <div class="menu-header">
+                    <div class="icon">🍗</div>
+                    <h3>Torta de Frango</h3>
                 </div>
+                <p class="desc">Torta salgada de frango</p>
+
+                <div class="sizes">
+                    <div class="size selected" data-size="Unidade" data-price="6">
+                        Unidade - R$ 6,00
+                    </div>
+                </div>
+
                 <textarea class="obs" placeholder="Observações..."></textarea>
+
                 <div class="action-buttons">
                     <button class="add-btn">Adicionar ao Carrinho</button>
                 </div>
@@ -450,8 +484,10 @@
         <i class="fas fa-shopping-cart" style="font-size:1.7rem;"></i>
         <span>Carrinho</span>
     </button>
+
     <div id="cart" class="cart">
         <h3>🛒 Meu Carrinho</h3>
+
         <div class="customer-box">
             <label for="client-name">
                 <i class="fas fa-user"></i>
@@ -459,11 +495,14 @@
             </label>
             <input type="text" id="client-name" class="client-name" placeholder="Digite seu nome"/>
         </div>
+
         <div class="coupon-box">
             <input type="text" id="coupon-code" class="coupon-input" placeholder="Cupom de desconto">
             <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
         </div>
+
         <div id="discount-info" class="discount-info"></div>
+
         <select id="payment-method" class="payment">
             <option value="">Forma de pagamento</option>
             <option>Pix</option>
@@ -471,25 +510,31 @@
             <option>Cartão de Crédito</option>
             <option>Cartão de Débito</option>
         </select>
+
         <div id="cart-items"></div>
         <div class="total" id="total">Total: R$ 0,00</div>
         <div class="total-final" id="total-final">Total com desconto: R$ 0,00</div>
-        <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">Enviar no WhatsApp</button>
+
+        <button onclick="checkout()" style="width:100%; padding:16px; background:#25D366; color:white; border:none; border-radius:15px; font-size:1.1rem; font-weight:bold; margin-top:15px;">
+            Enviar no WhatsApp
+        </button>
     </div>
 
     <script>
         let cart = JSON.parse(localStorage.getItem('buxoCart') || '[]');
         let discount = parseInt(localStorage.getItem('buxoDiscount') || '0');
+
         const validCoupons = {
             "KAR5": 5,
             "GEN5": 5
         };
+
         function saveCart() {
             localStorage.setItem('buxoCart', JSON.stringify(cart));
             localStorage.setItem('buxoDiscount', discount);
         }
 
-        function showToast(message){
+        function showToast(message) {
             const toast = document.getElementById("toast");
             toast.textContent = "✓ " + message;
             toast.classList.add("show");
@@ -515,13 +560,14 @@
                 const price = parseFloat(selectedSize.dataset.price);
                 const obs = item.querySelector('.obs').value.trim();
 
-                cart.push({ 
-                    name, 
-                    size, 
-                    price: price, 
-                    obs, 
-                    type: 'unidade' 
+                cart.push({
+                    name,
+                    size,
+                    price: price,
+                    obs,
+                    type: 'unidade'
                 });
+
                 showToast(`${name} adicionado ao carrinho`);
                 saveCart();
                 updateCart();
@@ -531,6 +577,7 @@
         function toggleCart() {
             const cartEl = document.getElementById('cart');
             cartEl.style.display = cartEl.style.display === 'block' ? 'none' : 'block';
+
             if (cartEl.style.display === 'block') updateCart();
         }
 
@@ -539,28 +586,37 @@
             const totalEl = document.getElementById('total');
             const totalFinalEl = document.getElementById('total-final');
             const discountInfoEl = document.getElementById('discount-info');
+
             itemsEl.innerHTML = '';
             let subtotal = 0;
+
             cart.forEach((item, i) => {
                 const div = document.createElement('div');
                 div.style.margin = "10px 0";
                 div.style.padding = "8px";
                 div.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
+
                 div.innerHTML = `
                     <strong>${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}</strong><br>
                     ${item.borda ? `Borda: ${item.borda}<br>` : ''}
                     ${item.extra ? `Extra: ${item.extra}<br>` : ''}
                     ${item.obs ? `Obs: ${item.obs}<br>` : ''}
                     <strong>R$ ${item.price.toFixed(2)}</strong>
-                    <button onclick="removeFromCart(${i})" style="float:right;background:red;color:white;border:none;padding:5px 10px;border-radius:8px;">Remover</button>
+                    <button onclick="removeFromCart(${i})" style="float:right;background:red;color:white;border:none;padding:5px 10px;border-radius:8px;">
+                        Remover
+                    </button>
                 `;
+
                 itemsEl.appendChild(div);
                 subtotal += item.price;
             });
+
             const valorDesconto = subtotal * (discount / 100);
             const valorFinal = subtotal - valorDesconto;
+
             totalEl.textContent = `Subtotal: R$ ${subtotal.toFixed(2)}`;
             totalFinalEl.textContent = `Total com desconto: R$ ${valorFinal.toFixed(2)}`;
+
             if (discount > 0) {
                 discountInfoEl.style.display = "block";
                 discountInfoEl.textContent = `Desconto aplicado: ${discount}% (-R$ ${valorDesconto.toFixed(2)})`;
@@ -577,6 +633,7 @@
 
         function applyCoupon() {
             const code = document.getElementById("coupon-code").value.trim().toUpperCase();
+
             if (validCoupons.hasOwnProperty(code)) {
                 discount = validCoupons[code];
                 showToast(`Cupom aplicado! Desconto de ${discount}%`);
@@ -592,29 +649,43 @@
 
         function checkout() {
             const name = document.getElementById('client-name').value.trim();
+
             if (!name) return showToast("Digite seu nome!");
+
             const payment = document.getElementById("payment-method").value;
+
             if (!payment) return showToast("Escolha a forma de pagamento");
             if (cart.length === 0) return alert("Carrinho vazio!");
+
             let subtotal = 0;
             cart.forEach(item => subtotal += item.price);
+
             const valorDesconto = subtotal * (discount / 100);
             const valorFinal = subtotal - valorDesconto;
+
             let message = `*Pedido - Buxo Xêi*\nCliente: ${name}\nPagamento: ${payment}\n\n`;
+
             cart.forEach(item => {
                 message += `${item.name} - ${item.size} ${item.type === 'metade' ? '(Metade)' : ''}\n`;
+
                 if (item.borda) message += `Borda: ${item.borda}\n`;
                 if (item.extra) message += `Extra: ${item.extra}\n`;
                 if (item.obs) message += `Obs: ${item.obs}\n`;
+
                 message += `Valor: R$ ${item.price.toFixed(2)}\n\n`;
             });
+
             message += `*Subtotal: R$ ${subtotal.toFixed(2)}*\n`;
+
             if (discount > 0) {
                 message += `*Desconto: -R$ ${valorDesconto.toFixed(2)} (${discount}%)*\n`;
             }
+
             message += `*Total a pagar: R$ ${valorFinal.toFixed(2)}*`;
+
             const phone = "558496955210";
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+
             cart = [];
             discount = 0;
             saveCart();
@@ -628,27 +699,35 @@
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
         const dotsContainer = document.getElementById('carouselDots');
+
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
+
             if (i === 0) dot.classList.add('active');
+
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
         }
+
         function updateCarousel() {
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
             document.querySelectorAll('.dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentSlide);
             });
         }
+
         function moveCarousel(direction) {
             currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
             updateCarousel();
         }
+
         function goToSlide(index) {
             currentSlide = index;
             updateCarousel();
         }
+
         setInterval(() => {
             moveCarousel(1);
         }, 5000);
