@@ -335,9 +335,13 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
         <div class="carousel-slide">
             <span class="promo-badge">Novidade</span>
             <span class="promo-icon">🍕</span>
-            <h3>Agora tem tamanho GG!</h3>
-            <p>Mais pizza para matar sua fome! Peça sua pizza favorita também no tamanho GG.</p>
-            <div class="promo-price">GG a partir de R$ 50,00</div>
+            <h3>Chegou a Calabresa Pro!</h3>
+            <p>
+                Uma combinação irresistível de calabresa, molho barbecue,
+                queijo, pimentão, cebola, tomate e molho de pizza.
+                Experimente essa novidade da Buxo Xêi!
+            </p>
+            <div class="promo-price">A partir de R$ 27,00</div>
         </div>
     </div>
 
@@ -520,6 +524,25 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; }
         <div class="size" data-size="P" data-price="27">P - R$27</div>
         <div class="size" data-size="M" data-price="32">M - R$32</div>
         <div class="size" data-size="G" data-price="38">G - R$38</div>
+    </div>
+    <div class="borda-options">
+        <div class="borda" data-preco="0">Sem borda</div>
+        <div class="borda" data-preco="0">Borda Catupiry</div>
+        <div class="borda" data-preco="0">Borda Cheddar</div>
+        <div class="borda" data-preco="7">Borda de Chocolate (+R$ 7,00)</div>
+    </div>
+    <textarea class="obs" placeholder="Observações..."></textarea>
+    <div class="action-buttons"><button class="add-btn">Adicionar Inteira</button><button class="half-btn">Metade</button></div>
+</div>
+
+<!-- NOVA PIZZA CALABRESA PRO -->
+<div class="menu-item" data-name="Calabresa Pro">
+    <div class="menu-header"><div class="icon">🍕</div><h3>Calabresa Pro</h3></div>
+    <p class="desc">Calabresa, molho barbecue, queijo, pimentão, cebola, tomate e molho de pizza</p>
+    <div class="sizes">
+        <div class="size" data-size="P" data-price="27">P - R$27</div>
+        <div class="size" data-size="M" data-price="36">M - R$36</div>
+        <div class="size" data-size="G" data-price="40">G - R$40</div>
     </div>
     <div class="borda-options">
         <div class="borda" data-preco="0">Sem borda</div>
@@ -730,6 +753,9 @@ document.querySelectorAll('.menu-item').forEach(item => {
     if (!tamanhoG) return;
 
     const precoG = parseFloat(tamanhoG.dataset.price);
+
+    // Pizzas com G de R$ 38 recebem GG de R$ 50.
+    // Pizzas com G de R$ 40 recebem GG de R$ 55.
     const precoGG = precoG === 38 ? 50 : 55;
 
     const tamanhoGG = document.createElement('div');
